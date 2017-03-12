@@ -1,10 +1,13 @@
 var app = angular.module("myApp", ["ngRoute"]);
 app.config(function($routeProvider,$locationProvider) {
     $routeProvider.when("/", {
-        templateUrl : "views/test1.html"
+        templateUrl : "views/home.html"
     })
-    .when("/London", {
-        templateUrl : "views/test2.html"
+    .when("/Search", {
+        templateUrl : "views/search.html"
+    })
+    .when("/FAQs", {
+        templateUrl : "views/FAQs.html"
     });
     $locationProvider.hashPrefix('');
 });

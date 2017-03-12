@@ -1,28 +1,35 @@
 <html>
 
-<header>
+<header>	
+	<script src="js/jquery-3.1.1.min.js"></script>
 	<script src="js/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 	<script src="js/angularModuleMain.js"></script>
-	<script src="js/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/angular.min.js"></script>
+	<script src="js/navbar.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/mootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 </header>
 
 <body ng-app="myApp">
-
+	<div class="row">
+		<a id="ctl00_ctl00_LeftLink" href="http://www.ucdenver.edu/academics/colleges/medicalschool/programs/atp/Pages/AssistiveTechnologyPartners.aspx" target="_blank" class="col-md-offset-2 col-md-3">
+			<img src="images/atp.png" alt="Assistive Technology Partners Link" style="border-width:0px;">
+		</a>
+		<p class="col-md-offset-1 col-md-4" style="padding-top:14px;">"Our mission is to empower individuals with disabilities to achieve their highest potential through the use of assistive technology"</p>
+	</div>
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
-	      <a class="navbar-brand" href="#/">WebSiteName</a>
+	      <a class="navbar-brand" href="#/">AT Finder</a>
 	    </div>
 	    <ul class="nav navbar-nav">
-	      <li class="active"><a href="#/">Home</a></li>
-	      <li><a href="#/London">Page 1</a></li>
-	      <li><a href="#/">Page 2</a></li>
-	      <li><a href="#/">Page 3</a></li>
+	      <li class="home"><a href="#/">Home</a></li>
+	      <li><a href="#/Search">Search for AT</a></li>
+	      <li><a href="#/FAQs">FAQs</a></li>
+	      <li><a href="#/">Resources</a></li>
+	      <li><a href="#/">Contact Us</a></li>
 	    </ul>
 	  </div>
 	</nav>
