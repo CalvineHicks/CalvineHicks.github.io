@@ -8,6 +8,16 @@ app.config(function($routeProvider,$locationProvider) {
     })
     .when("/FAQs", {
         templateUrl : "views/FAQs.html"
+    })
+    .when("/ContactUs", {
+        templateUrl : "views/ContactUs.html"
     });
     $locationProvider.hashPrefix('');
+});
+
+app.controller('scrollLinks', function($scope, $location, $anchorScroll) {
+   $scope.scrollTo = function(id) {
+      $location.hash(id);
+      $anchorScroll();
+   }
 });

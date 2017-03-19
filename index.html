@@ -10,31 +10,37 @@
 	<script src="js/navbar.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/pagestyles.css">
 </header>
 
 <body ng-app="myApp">
 	<div class="row">
-		<a id="ctl00_ctl00_LeftLink" href="http://www.ucdenver.edu/academics/colleges/medicalschool/programs/atp/Pages/AssistiveTechnologyPartners.aspx" target="_blank" class="col-md-offset-2 col-md-3">
+		<h1 class="display-1 col-md-2 col-md-offset-3">AT Finder</h1>
+		<a href="http://www.ucdenver.edu/academics/colleges/medicalschool/programs/atp/Pages/AssistiveTechnologyPartners.aspx" target="_blank" class="col-md-3">
 			<img src="images/atp.png" alt="Assistive Technology Partners Link" style="border-width:0px;">
 		</a>
-		<p class="col-md-offset-1 col-md-4" style="padding-top:14px;">"Our mission is to empower individuals with disabilities to achieve their highest potential through the use of assistive technology"</p>
 	</div>
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
-	    <div class="navbar-header">
-	      <a class="navbar-brand" href="#/">AT Finder</a>
-	    </div>
 	    <ul class="nav navbar-nav">
-	      <li class="home"><a href="#/">Home</a></li>
+	      <li id="home"><a href="#/" >Home</a></li>
 	      <li><a href="#/Search">Search for AT</a></li>
 	      <li><a href="#/FAQs">FAQs</a></li>
 	      <li><a href="#/">Resources</a></li>
-	      <li><a href="#/">Contact Us</a></li>
+	      <li><a href="#/ContactUs">Contact Us</a></li>
 	    </ul>
 	  </div>
 	</nav>
 
 	<div ng-view></div>
-
+<div id="footer">		
+	<hr class="my-4">
+	<p>©2017,  Regents of the University of Colorado.  All Rights Reserved.  AT Finder was developed at Assistive Technology Partners.</p>
+	<p>Funding for this project made possible by The Assistive Technology Act of 2004 P.L. 108-364; H224B030001 and H224B060002.</p>
+	<div>
+		<a href="#/ContactUs">Contact Us</a>
+	</div>
+	<a href="#link">University of Colorado Denver</a>
+</div>
 </body>
 </html>
