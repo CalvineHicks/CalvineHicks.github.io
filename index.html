@@ -11,11 +11,15 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/pagestyles.css">
+	<meta charset="UTF-8">
 </header>
 
 <body ng-app="myApp">
 	<div class="row">
-		<h1 class="display-1 col-md-2 col-md-offset-3">AT Finder</h1>
+		<div class ="column">
+			<a href="#/" id="logo"><h1 class="display-1 col-md-2 col-md-offset-3">AT Finder</h1>
+			</a>
+		</div>
 		<a href="http://www.ucdenver.edu/academics/colleges/medicalschool/programs/atp/Pages/AssistiveTechnologyPartners.aspx" target="_blank" class="col-md-3">
 			<img src="images/atp.png" alt="Assistive Technology Partners Link" style="border-width:0px;">
 		</a>
@@ -23,24 +27,26 @@
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
 	    <ul class="nav navbar-nav">
-	      <li id="home"><a href="#/" >Home</a></li>
-	      <li><a href="#/Search">Search for AT</a></li>
-	      <li><a href="#/FAQs">FAQs</a></li>
-	      <li><a href="#/">Resources</a></li>
-	      <li><a href="#/ContactUs">Contact Us</a></li>
+	      <li id="Home"><a href="#/">Home</a></li>
+	      <li id="Search"><a href="#/Search">Advanced Search</a></li>
+	      <li id="FAQs"><a href="#/FAQs">FAQs</a></li>
+	      <li id="Resources"><a href="#/Resources">AT Resources</a></li>
+	      <li id="ContactUs"><a href="#/ContactUs">Contact Us</a></li>
 	    </ul>
 	  </div>
 	</nav>
 
 	<div ng-view></div>
 <div id="footer">		
-	<hr class="my-4">
+	<div class="row">
+		<hr>
+	</div>
 	<p>©2017,  Regents of the University of Colorado.  All Rights Reserved.  AT Finder was developed at Assistive Technology Partners.</p>
 	<p>Funding for this project made possible by The Assistive Technology Act of 2004 P.L. 108-364; H224B030001 and H224B060002.</p>
 	<div>
-		<a href="#/ContactUs">Contact Us</a>
+		<a href="http://www.ucdenver.edu/academics/colleges/engineering/research/assistivetechnologypartners/pages/home.aspx"
+		>Assistive Technology Partners</a>
 	</div>
-	<a href="#link">University of Colorado Denver</a>
 </div>
 </body>
 </html>

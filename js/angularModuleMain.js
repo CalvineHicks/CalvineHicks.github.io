@@ -9,8 +9,11 @@ app.config(function($routeProvider,$locationProvider) {
     .when("/FAQs", {
         templateUrl : "views/FAQs.html"
     })
+    .when("/Resources", {
+        templateUrl : "views/resources.html"
+    })
     .when("/ContactUs", {
-        templateUrl : "views/ContactUs.html"
+        templateUrl : "views/contactUs.html"
     });
     $locationProvider.hashPrefix('');
 });

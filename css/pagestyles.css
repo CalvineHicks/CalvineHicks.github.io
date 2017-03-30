@@ -28,7 +28,13 @@
   text-align:center;
   margin:0 auto;
 }
-
+hr {
+    height: 2px;
+    background-color:#555;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 75%;
+}
 .padding-left-s{
   padding-left:5%;
 }
