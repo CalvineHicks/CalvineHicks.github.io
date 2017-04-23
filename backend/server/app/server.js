@@ -50,22 +50,76 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
-//ebay username = ATPFinder
-//ebay pass = ATPFinder21!
 router.get('/ebay', function(req, res) {
 
     request('https://svcs.ebay.com/services/search/FindingService/v1?SECURITY-APPNAME=ThurmanJ-ATPFinde-PRD-f69e2c47f-507095d2&OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=iPhone&paginationInput.entriesPerPage=10&GLOBAL-ID=EBAY-US&siteid=0', function (error, response, body) {
-       res.json(JSON.parse(body));
+        var resultList = [];
+        
+        body = JSON.parse(body);
+        
+        var ebayRes = body['findItemsByKeywordsResponse'][0];
+        
+        if(ebayRes['ack'] == 'Success'){
+            var searchResults = ebayRes['searchResult'];
+            if(searchResults[0]){
+                var items = searchResults[0]['item'];
+                if(items){
+                    for(i in items){
+                        var result = {};
+                        result['title'] = items[i]['title'];
+                        result['price'] = items[i]['sellingStatus'][0]['currentPrice'][0]['__value__'];
+                        try {
+                            result['shippingPrice'] = items[i]['shippingInfo'][0]['shippingServiceCost'][0]['__value__'];
+                        }
+                        catch (err){}
+                        result['link'] = items[i]['viewItemURL'];
+                        result['description'] = items[i]['primaryCategory'][0]['categoryName'][0];
+                        result['imageLink'] = items[i]['galleryURL'];
+                        result['startDateTime'] = items[i]['listingInfo'][0]['startTime'][0]
+                        result['endDateTime'] = items[i]['listingInfo'][0]['endTime'][0]
+                        
+                        resultList.push(result);
+                    }
+                }
+            }
+        }
+        
+        res.json(resultList);
     });
 });
            
 router.get('/getZip', function(req, res) {
-    console.log('getZip');
+     request('http://maps.googleapis.com/maps/api/geocode/json?address='+req.query.zipCode+'&sensor=false', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var results = JSON.parse(body);
+            var result = results['results'][0];
+            if(result != null){
+                    var response = {};
+                for(i in result['address_components']){
+                    var addr = result['address_components'][i];
+                    console.log(addr);
+                    if(addr['types']){
+                        if(addr['types'].indexOf('locality')>-1 || addr['types'].indexOf('postal_town')>-1){
+                           response['city'] = addr['long_name'];
+                        }
+                        if(addr['types'].indexOf('administrative_area_level_1')>-1){
+                            response['state'] = addr['short_name'];
+                        }
+                        if(addr['types'].indexOf('country')>-1){
+                            response['country'] = addr['short_name'];
+                        }
+                    }
+                }
+                res.json(response);
+            }
+        }
+    });
 });
 
 router.get('/craigslist', function(req, res) {
-
-request('http://DENVER.craigslist.org/search/sss?format=rss&query=chair', function (error, response, body) {
+var city = req.query.city.toUpperCase();
+var queryString = req.query.queryString;
+request('http://'+city+'.craigslist.org/search/sss?format=rss&query='+queryString+'', function (error, response, body) {
     if (!error && response.statusCode == 200) {
         var doc = new dom().parseFromString(body)
         var select = xpath.useNamespaces(
@@ -82,8 +136,11 @@ request('http://DENVER.craigslist.org/search/sss?format=rss&query=chair', functi
          var item = new dom().parseFromString(nodes[i].toString())
         
         var title = select('//*[name()="title"]/text()' , item)[0].toString();
-        title = title.substring(title.lastIndexOf('<![CDATA')+9, title.lastIndexOf(']]>'))
+        title = title.substring(title.lastIndexOf('<![CDATA')+9, title.lastIndexOf(']]>')).replace('&#x0024;','$');
         responseModel['title'] = title;
+        
+        var price = title.substring(title.lastIndexOf('$', title.length));
+        responseModel['price'] = price;
             
         var link = select('//*[name()="link"]/text()' , item)[0].toString();
         responseModel['link'] = link;
@@ -93,7 +150,7 @@ request('http://DENVER.craigslist.org/search/sss?format=rss&query=chair', functi
         responseModel['description'] = description;
             
         var date = select('//*[name()="dc:date"]/text()' , item)[0].toString();
-        responseModel['date'] = date;
+        responseModel['startDateTime'] = date;
         
         var resourceType =  select('//*[name()="enc:enclosure"]/@type' , item);
         
@@ -114,12 +171,8 @@ request('http://DENVER.craigslist.org/search/sss?format=rss&query=chair', functi
 });
 
 var getCityFromZip = function(zipCode){
+    result = null;
     
-    request('http://maps.googleapis.com/maps/api/geocode/json?address='+zipCode+'&sensor=false', function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            console.log(body);
-        }
-    });
     
 }
 
