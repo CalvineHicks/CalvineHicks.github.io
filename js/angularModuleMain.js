@@ -6,8 +6,8 @@ app.config(function($routeProvider,$locationProvider) {
     .when("/Search", {
         templateUrl : "views/search.html"
     })
-    .when("/FAQs", {
-        templateUrl : "views/FAQs.html"
+    .when("/AboutUs", {
+        templateUrl : "views/aboutUs.html"
     })
     .when("/Resources", {
         templateUrl : "views/resources.html"
