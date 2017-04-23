@@ -5,41 +5,46 @@
 	<script src="js/angular.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
 	<script src="js/angularModuleMain.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script src="lib/tether-1.4.0/dist/js/tether.min.js"></script>
+	<script src="lib/bootstrap-4.0.0-alpha.6/js/bootstrap.js"></script>
 	<script src="js/angular.min.js"></script>
 	<script src="js/navbar.js"></script>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.6/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.6/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.6/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/pagestyles.css">
 	<meta charset="UTF-8">
 </header>
 
 <body ng-app="myApp">
-	<div class="row">
-		<div class ="column">
-			<a href="#/" id="logo"><h1 class="display-1 col-md-2 col-md-offset-3">AT Finder</h1>
+	<div class="row" style="height: 60px;">
+		<div class ="col align-self-start">
+			<a href="#/" id="logo"><h1 class="display-4 col-md-2 col-md-offset-1">AT Finder</h1>
 			</a>
 		</div>
-		<a href="http://www.ucdenver.edu/academics/colleges/medicalschool/programs/atp/Pages/AssistiveTechnologyPartners.aspx" target="_blank" class="col-md-3">
-			<img src="images/atp.png" alt="Assistive Technology Partners Link" style="border-width:0px;">
-		</a>
+		<div class ="col align-self-end">
+			<a href="http://www.ucdenver.edu/academics/colleges/medicalschool/programs/atp/Pages/AssistiveTechnologyPartners.aspx" target="_blank" class="col-md-3 float-right">
+				<img src="images/atp.png" alt="Assistive Technology Partners Link" style="border-width:0px; width: 300px;">
+			</a>
+		</div>
 	</div>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default navbar-toggleable-sm navbar-fixed-top navbar-light bg-faded">
 	  <div class="container-fluid">
-	    <ul class="nav navbar-nav">
-	      <li id="Home"><a href="#/">Home</a></li>
-	      <li id="Search"><a href="#/Search">Advanced Search</a></li>
-	      <li id="FAQs"><a href="#/FAQs">FAQs</a></li>
-	      <li id="Resources"><a href="#/Resources">AT Resources</a></li>
-	      <li id="ContactUs"><a href="#/ContactUs">Contact Us</a></li>
-	    </ul>
+		    <ul class="nav navbar-nav">
+		      <li id="Home" class="nav-item"><a href="#/" class="nav-link">Home</a></li>
+		      <li id="Search" class="nav-item"><a href="#/Search" class="nav-link">Advanced Search</a></li>
+		      <li id="FAQs" class="nav-item"><a href="#/AboutUs" class="nav-link">About Us</a></li>
+		      <li id="Resources" class="nav-item"><a href="#/Resources" class="nav-link">AT Resources</a></li>
+		      <li id="ContactUs" class="nav-item"><a href="#/ContactUs" class="nav-link">Contact Us</a></li>
+		    </ul>
 	  </div>
 	</nav>
 
 	<div ng-view></div>
 <div id="footer">		
 	<div class="row">
-		<hr>
+		<hr class="margin-top-s margin-bottom-s">
 	</div>
 	<p>©2017,  Regents of the University of Colorado.  All Rights Reserved.  AT Finder was developed at Assistive Technology Partners.</p>
 	<p>Funding for this project made possible by The Assistive Technology Act of 2004 P.L. 108-364; H224B030001 and H224B060002.</p>

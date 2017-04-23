@@ -8,7 +8,7 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser'); //parse incoming POST body
 var MongoClient = require('mongodb').MongoClient; //mongo database
-var request = require('request'); //make http requests
+//var request = require('request'); //make http requests
 var xpath = require('xpath');  //xpath parser
 var dom = require('xmldom').DOMParser; //dom obj for xpath
 
