@@ -12,11 +12,27 @@ var MongoClient = require('mongodb').MongoClient; //mongo database
 var properties = require('./properties.js');
 var path = require('path');
 
+// CORS header securiy
+app.use(function (req, res, next) {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, PATCH, DELETE');
+    res.set('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Accept');
+    // intercept OPTIONS method
+        if ('OPTIONS' == req.method) {
+        console.log(req.method);
+          res.send(200);
+        }
+        else {
+          next();
+        }
+});
+
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var port = process.env.PORT || 8080;        // set our port
+
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -32,20 +48,19 @@ MongoClient.connect('mongodb://'+ properties.mongodb.user_name +':'+properties.m
   })
 })
 
-router.use(require('./services/craigslist'));
-router.use(require('./services/ebay'));
-router.use(require('./services/zipLookup'));
-router.use(require('./services/userLogging'));
-router.use(require('./services/atpFinderApp'));
-
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* GET home page. */
 app.get('/', function(req, res, next) {
   //Path to your main file
-  res.status(200).sendFile(path.join(__dirname+'../public/index.html'));
+  res.status(200).sendFile(path.join(__dirname+'/public/index.html'));
 });
+
+app.use(require('./services/craigslist'));
+app.use(require('./services/ebay'));
+app.use(require('./services/zipLookup'));
+app.use(require('./services/userLogging'));
 
 // START THE SERVER
 // =============================================================================

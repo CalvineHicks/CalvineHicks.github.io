@@ -4,12 +4,12 @@ var request = require('request');
 var properties = require('../properties.js');
 
 router.get('/ebay', function(req, res) {
-
 var queryString = req.query.queryString;
     request('https://svcs.ebay.com/services/search/FindingService/v1?SECURITY-APPNAME='+properties.ebay.app_name+'&OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords='+queryString+'&paginationInput.entriesPerPage=10&GLOBAL-ID=EBAY-US&siteid=0', function (error, response, body) {
         var resultList = [];
 
         body = JSON.parse(body);
+
 
         var ebayRes = body['findItemsByKeywordsResponse'][0];
 
