@@ -10,6 +10,7 @@ var request = require('request'); //make http requests
 var bodyParser = require('body-parser'); //parse incoming POST body
 var MongoClient = require('mongodb').MongoClient; //mongo database
 var properties = require('./properties.js');
+var path = require('path');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -35,8 +36,16 @@ router.use(require('./services/craigslist'));
 router.use(require('./services/ebay'));
 router.use(require('./services/zipLookup'));
 router.use(require('./services/userLogging'));
+router.use(require('./services/atpFinderApp'));
 
-app.use('/atpFinder', router);
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+/* GET home page. */
+app.get('/', function(req, res, next) {
+  //Path to your main file
+  res.status(200).sendFile(path.join(__dirname+'../public/index.html'));
+});
 
 // START THE SERVER
 // =============================================================================

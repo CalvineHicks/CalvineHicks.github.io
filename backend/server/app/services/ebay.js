@@ -29,7 +29,11 @@ var queryString = req.query.queryString;
                         catch (err){ result['shippingPrice'] = 'No Shipping Info Available' }
                         result['link'] = items[i]['viewItemURL'][0];
                         result['description'] = items[i]['primaryCategory'][0]['categoryName'][0];
-                        result['imageLink'] = items[i]['galleryURL'][0];
+                        result['thumbnail'] = items[i]['galleryURL'][0];
+                        try {
+                            result['imageLink'] = items[i]['galleryPlusPictureURL'][0];
+                        }
+                        catch (err){ result['imageLink'] = 'No Image Link Available' }
                         result['startDateTime'] = items[i]['listingInfo'][0]['startTime'][0]
                         result['endDateTime'] = items[i]['listingInfo'][0]['endTime'][0]
 
