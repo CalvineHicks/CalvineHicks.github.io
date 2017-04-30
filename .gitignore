@@ -1,4 +1,8 @@
 .DS_Store
+
+# properties file
+properties.js
+
 # Logs
 logs
 *.log
