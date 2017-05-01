@@ -1,5 +1,4 @@
 app.controller('SearchController', function SearchController($scope, $http) {
-  console.log('blah')
 
   $scope.advancedSearchInput = '';
     $scope.zipCode = '';
@@ -10,6 +9,17 @@ app.controller('SearchController', function SearchController($scope, $http) {
     $scope.craigslistResults = [];
     $scope.results = [];
     $scope.results.length = 0;
+      
+    $scope.sortType     = 'price'; // set the default sort type
+    $scope.sortReverse  = false;  // set the default sort order
+    $scope.sortSelected = 'price:false';
+    
+    $scope.sortSelect = function(){
+        var args = $scope.sortSelected.split(':');
+        $scope.sortType     = args[0];
+        $scope.sortReverse  = (args[1] == 'true');
+    };
+    
     $http({
       method: 'GET',
       headers: {
@@ -29,7 +39,7 @@ app.controller('SearchController', function SearchController($scope, $http) {
       headers: {
         'Content-Type' : 'text/html'
       },
-      url: 'http://localhost:8080/craigslist/?city=denver&queryString='+$scope.advancedSearchInput
+      url: 'http://localhost:8080/craigslist/?city='+$scope.city+'&queryString='+$scope.advancedSearchInput
       }).then(function successCallback(response) {
         $scope.craigslistResults = response['data'];
         $scope.results = $scope.results.concat(response['data']);

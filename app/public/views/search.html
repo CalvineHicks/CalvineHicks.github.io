@@ -1,38 +1,61 @@
 <div ng-controller="SearchController" class="container">
 <h3>Advanced Search</h3>
-    <form class="form-inline">
-        <label for="advancedSearchInput" >Search Query</label>
-        <input type="text" class="col-md-3 form-control" id="advancedSearchInput" ng-model="advancedSearchInput" ng-change="advancedSearch()"/>
-        <label for="zipCode">Zip Code</label>
-        <input type="text" class="col-md-2 form-control" id="zipCode" ng-model="zipCode" ng-change="zipCodeToCity()"/>
-        <label for="city">City</label>
-        <input type="text" class="form-control" id="city" ng-model="city"/>
-    </form>
+    <div class="row">
+        <form class="form-inline">
+            <div class="form-group col-md-2">
+                <label for="zipCode">Zip Code</label>
+                <input type="text" class="form-control col-md-9" id="zipCode" ng-model="zipCode" ng-change="zipCodeToCity()"/>
+            </div>    
+            <div class="form-group col-md-4">
+                <label for="city">City</label>
+                <input type="text" ng-disabled="true" placeholder="Please Enter Zip Code" class="form-control" id="city" ng-model="city"/>
+            </div>
+            <div class="form-group col-md-5">
+                <label for="advancedSearchInput"   ng-hide="city.length == 0">Search Query</label>
+                <input type="text" ng-hide="city.length == 0" class="form-control col-md-11" id="advancedSearchInput" ng-model="advancedSearchInput" ng-change="advancedSearch()"/>
+            </div>
+        </form>
+    </div>
+    <hr/>
+    <div ng-show="results.length > 0">
+        <div class="row justify-content-end">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="sortSelect">Sort&nbsp;</label>
+                    <select class="form-control" id="sortSelect" ng-model="sortSelected" ng-change="sortSelect()">
+                      <option value="price:false">Price: Low to High</option>
+                      <option value="price:true">Price: High to Low</option>
+                      <option value="startDateTime:true">Date Posted: Latest</option>
+                      <option value="startDateTime:false">Date Posted: Oldest</option>
+                    </select>
+                  </div>
+            </form>
+        </div>
 
-    <table class="table table-bordered">
-        <thead class="thead-default">
-            <th>Preview</th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Date Posted</th>
-        </thead>
-        <tbody>
-            <tr ng-repeat="result in results">
-                <td><img ng-src="{{result.thumbnail || result.imageLink}}" alt="" class="img-thumbnail"></td>
-                <td>{{ result.title }}</td>
-                <td>
-                    <div ng-if="result.shippingPrice">
-                        Base:&nbsp;{{ result.price }}<br/>Shipping:&nbsp;{{ result.shippingPrice}}
-                    </div>
-                    <div ng-if="!result.shippingPrice">
-                        {{ result.price }}
-                    </div>
-                </td>
-                <td>{{ result.description }}</td>
-                <td>{{ result.startDateTime | date : short}}</td>
-            </tr>
-        </tbody>
-    </table>
-
+        <table class="table table-bordered">
+            <thead class="thead-default">
+                <th>Preview</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Date Posted</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="result in results | orderBy:sortType:sortReverse">
+                    <td><img ng-src="{{result.thumbnail || result.imageLink}}" alt="" class="img-thumbnail"></td>
+                    <td>{{ result.title }}</td>
+                    <td>
+                        <div ng-if="result.shippingPrice">
+                            Base:&nbsp;{{ result.price }}<br/>Shipping:&nbsp;{{ result.shippingPrice}}
+                        </div>
+                        <div ng-if="!result.shippingPrice">
+                            {{ result.price }}
+                        </div>
+                    </td>
+                    <td>{{ result.description }}</td>
+                    <td>{{ result.startDateTime | date : short}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
