@@ -1,8 +1,12 @@
 <div ng-controller="SearchController" class="container">
 <h3>Advanced Search</h3>
-    <form>
-        <label for="advancedSearchInput">Search Query</label>
-        <input type="text" class="form-control" id="advancedSearchInput" ng-model="advancedSearchInput" ng-change="advancedSearch()"/>
+    <form class="form-inline">
+        <label for="advancedSearchInput" >Search Query</label>
+        <input type="text" class="col-md-3 form-control" id="advancedSearchInput" ng-model="advancedSearchInput" ng-change="advancedSearch()"/>
+        <label for="zipCode">Zip Code</label>
+        <input type="text" class="col-md-2 form-control" id="zipCode" ng-model="zipCode" ng-change="zipCodeToCity()"/>
+        <label for="city">City</label>
+        <input type="text" class="form-control" id="city" ng-model="city"/>
     </form>
 
     <table class="table table-bordered">

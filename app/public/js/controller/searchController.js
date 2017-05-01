@@ -2,6 +2,8 @@ app.controller('SearchController', function SearchController($scope, $http) {
   console.log('blah')
 
   $scope.advancedSearchInput = '';
+    $scope.zipCode = '';
+    $scope.city = '';
 
   $scope.advancedSearch = debounce(function(){
     $scope.ebayResults = [];
@@ -36,6 +38,25 @@ app.controller('SearchController', function SearchController($scope, $http) {
         console.log(response);
       });
   }, 1000, false);
+
+  $scope.zipCodeToCity = debounce(function(){
+    $http({
+          method: 'GET',
+          headers: {
+            'Content-Type' : 'application/json'
+          },
+          url: 'http://localhost:8080/getZip/?zipCode='+$scope.zipCode
+        }).then(function successCallback(response) {
+            console.log(response);
+            if(response['data']['city']){
+                $scope.city = response['data']['city'];
+            }
+          }, function errorCallback(response) {
+            console.log('error');
+            console.log(response);
+          });
+  }, 500, false);
+
 });
 
 function debounce(func, wait, immediate) {
