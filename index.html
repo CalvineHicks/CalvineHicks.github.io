@@ -20,17 +20,16 @@
 <body ng-app="myApp">
 	<div class="row" style="height: 60px;">
 		<div class ="col align-self-start">
-			<a href="#/" id="logo"><h1 class="display-4 col-md-2 col-md-offset-1">AT Finder</h1>
+			<a href="#/" id="logo"><h1 class="display-4 col-md-6">AT Finder</h1>
 			</a>
 		</div>
 		<div class ="col align-self-end">
-			<a href="http://www.ucdenver.edu/academics/colleges/medicalschool/programs/atp/Pages/AssistiveTechnologyPartners.aspx" target="_blank" class="col-md-3 float-right">
+			<a href="http://www.ucdenver.edu/academics/colleges/medicalschool/programs/atp/Pages/AssistiveTechnologyPartners.aspx" target="_blank" class="col-md-3 offset-md-5">
 				<img src="images/atp.png" alt="Assistive Technology Partners Link" style="border-width:0px; width: 300px;">
 			</a>
 		</div>
 	</div>
-	<nav class="navbar navbar-default navbar-toggleable-sm navbar-fixed-top navbar-light bg-faded">
-	  <div class="container-fluid">
+	<nav class="navbar navbar-default navbar-toggleable-sm navbar-fixed-top navbar-light bg-faded align-self-start">
 		    <ul class="nav navbar-nav">
 		      <li id="Home" class="nav-item"><a href="#/" class="nav-link">Home</a></li>
 		      <li id="Search" class="nav-item"><a href="#/Search" class="nav-link">Advanced Search</a></li>
@@ -38,9 +37,8 @@
 		      <li id="Resources" class="nav-item"><a href="#/Resources" class="nav-link">AT Resources</a></li>
 		      <li id="ContactUs" class="nav-item"><a href="#/ContactUs" class="nav-link">Contact Us</a></li>
 		    </ul>
-	  </div>
 	</nav>
-
+	<div style="margin-top:2%;"></div>
 	<div ng-view></div>
 <div id="footer">		
 	<div class="row">
