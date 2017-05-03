@@ -1,0 +1,38 @@
+<div ng-controller="SearchController" class="container">
+<h3>Advanced Search</h3>
+    <form class="form-inline">
+        <label for="advancedSearchInput" >Search Query</label>
+        <input type="text" class="col-md-3 form-control" id="advancedSearchInput" ng-model="advancedSearchInput" ng-change="advancedSearch()"/>
+        <label for="zipCode">Zip Code</label>
+        <input type="text" class="col-md-2 form-control" id="zipCode" ng-model="zipCode" ng-change="zipCodeToCity()"/>
+        <label for="city">City</label>
+        <input type="text" class="form-control" id="city" ng-model="city"/>
+    </form>
+
+    <table class="table table-bordered">
+        <thead class="thead-default">
+            <th>Preview</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Date Posted</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="result in results">
+                <td><img ng-src="{{result.thumbnail || result.imageLink}}" alt="" class="img-thumbnail"></td>
+                <td>{{ result.title }}</td>
+                <td>
+                    <div ng-if="result.shippingPrice">
+                        Base:&nbsp;{{ result.price }}<br/>Shipping:&nbsp;{{ result.shippingPrice}}
+                    </div>
+                    <div ng-if="!result.shippingPrice">
+                        {{ result.price }}
+                    </div>
+                </td>
+                <td>{{ result.description }}</td>
+                <td>{{ result.startDateTime | date : short}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
