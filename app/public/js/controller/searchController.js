@@ -98,6 +98,44 @@ app.controller('SearchController', function SearchController($scope, $http) {
     }
   };
 
+  $scope.openResult = function(url){
+    //window.open(url,'_blank');
+    //window.open(url);
+
+    var userStats = {};
+    userStats['clickedLink'] = url;
+
+    $http({
+      method: 'GET',
+      url: 'http://ip-api.com/json'
+      }).then(function successCallback(response) {
+        var data = response['data'];
+
+        userStats['city'] = data['city'];
+        userStats['state'] = data['region'];
+        userStats['country'] = data['countryCode'];
+        userStats['ipAddress'] = data['query'];
+
+        console.log(JSON.stringify(userStats));
+              $http({
+                method: 'POST',
+                url: 'http://localhost:8080/logUserSearch',
+                data : userStats
+                }).then(function successCallback(response) {
+                  console.log('user stats saved');
+
+                }, function errorCallback(response) {
+                  console.log('error');
+                  console.log(response);
+                });
+
+      }, function errorCallback(response) {
+        console.log('error');
+        console.log(response);
+      });
+
+  };
+
 });
 
 function debounce(func, wait, immediate) {

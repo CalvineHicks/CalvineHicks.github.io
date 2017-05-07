@@ -30,6 +30,7 @@ app.use(function (req, res, next) {
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 var port = process.env.PORT || 8080;        // set our port
 
@@ -46,7 +47,56 @@ MongoClient.connect('mongodb://'+ properties.mongodb.user_name +':'+properties.m
   app.listen(3000, () => {
     console.log('listening on 3000')
   })
-})
+});
+
+app.post('/logUserSearch', function(req, res) {
+    var ip = req.body['ipAddress'];
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd='0'+dd
+    }
+
+    if(mm<10) {
+        mm='0'+mm
+    }
+
+    today = mm+'/'+dd+'/'+yyyy;
+
+    db.collection('usersearches').findOne({'ipAddress' : ip}, (err, result) => {
+
+    console.log(result);
+        if(!result){
+            //set up new user obj
+            var user = {};
+            var visits = [];
+            var visit = {};
+            user['ipAddress'] = req.body['ipAddress'];
+            user['city'] = req.body['city'];
+            user['country'] = req.body['country'];
+            user['state'] = req.body['state'];
+            user['visits'] = visits;
+        }
+        else{
+            var user = result;
+            var visits = user['visits'];
+            var visit = {};
+        }
+
+        visit['clickedLink'] = req.body['clickedLink'];
+        visit['date'] = today;
+        visits.push(visit);
+
+        console.log(user);
+        db.collection('usersearches').save(user, (err, result) => {
+            if (err) return console.log(err);
+          });
+    });
+            res.json('success');
+});
 
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -60,7 +110,6 @@ app.get('/', function(req, res, next) {
 app.use(require('./services/craigslist'));
 app.use(require('./services/ebay'));
 app.use(require('./services/zipLookup'));
-app.use(require('./services/userLogging'));
 
 // START THE SERVER
 // =============================================================================
