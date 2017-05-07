@@ -3,8 +3,12 @@ app.controller('SearchController', function SearchController($scope, $http) {
   $scope.advancedSearchInput = '';
     $scope.zipCode = '';
     $scope.city = '';
+    $scope.state = '';
+    $scope.results = [];
+    $scope.craigslistResults = [];
+    $scope.ebayResults = [];
 
-  $scope.advancedSearch = debounce(function(){
+  $scope.advancedSearch = function(){
     $scope.ebayResults = [];
     $scope.craigslistResults = [];
     $scope.results = [];
@@ -47,7 +51,7 @@ app.controller('SearchController', function SearchController($scope, $http) {
         console.log('error');
         console.log(response);
       });
-  }, 1000, false);
+  };
 
   $scope.zipCodeToCity = debounce(function(){
     $http({
@@ -60,6 +64,9 @@ app.controller('SearchController', function SearchController($scope, $http) {
             console.log(response);
             if(response['data']['city']){
                 $scope.city = response['data']['city'];
+            }
+            if(response['data']['state']){
+                $scope.state = response['data']['state'];
             }
           }, function errorCallback(response) {
             console.log('error');

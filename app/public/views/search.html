@@ -1,36 +1,69 @@
-<div ng-controller="SearchController" class="container">
-<h3>Advanced Search</h3>
-    <div class="row">
-        <form class="form-inline">
-            <div class="form-group col-md-2">
-                <label for="zipCode">Zip Code</label>
-                <input type="text" class="form-control col-md-9" id="zipCode" ng-model="zipCode" ng-change="zipCodeToCity()"/>
-            </div>    
-            <div class="form-group col-md-4">
-                <label for="city">City</label>
-                <input type="text" ng-disabled="true" placeholder="Please Enter Zip Code" class="form-control" id="city" ng-model="city"/>
+<div ng-controller="SearchController">
+    <h3 class="">Advanced Search</h3>
+    <div class="justify-content-center row">
+        <div class="card col-md-8">
+            <div class="card-block">
+                <div class="row">
+                    <form class="form" style="margin-bottom:-15px;">
+                        <div class="form-group col-md-12">
+                            <div class="input-group justify-content-center">
+                                <input type="text" ng-hide="zipCode.length < 5" class="form-control col-md-10" id="advancedSearchInput" ng-model="advancedSearchInput"/>
+                                <input type="text" ng-disabled="true" ng-show="zipCode.length < 5" data-toggle="tooltip" data-placement="top" title="Zip Code is Required to Search" class="form-control col-md-8" id="advancedSearchInput" ng-model="advancedSearchInput"/>
+                                <button type="submit" ng-disabled="true" ng-show="zipCode.length < 5"class="btn btn-primary col-md-2" ng-click="advancedSearch()" data-toggle="tooltip" data-placement="top" title="Zip Code is Required to Search">Search</button>
+                                <button type="submit"  ng-hide="zipCode.length < 5" class="btn btn-primary col-md-2" ng-click="advancedSearch()" data-toggle="tooltip" data-placement="top" title="Zip Code is Required to Search">Search</button>
+                            </div>    
+                        </div>
+                        <div class="row justify-content-end">
+                            <div class="form-group col-md-2" ng-class="{'has-danger' : zipCode.length < 5, 'has-success' : zipCode.length == 5}">
+                                <label for="zipCode" ng-class="{'text-danger' : zipCode.length < 5}">Zip Code</label>
+                                <input type="text" class="form-control" ng-class="{'form-control-danger' : zipCode.length < 5, 'form-control-success' : zipCode.length == 5}" id="zipCode" ng-model="zipCode" ng-change="zipCodeToCity()"/>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="city">City</label>
+                                <input type="text" ng-disabled="true" placeholder="Please Enter Zip Code" class="form-control" id="city" ng-model="city"/>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <div class="col-md-9" style="padding-left:0px;">
+                                    <label for="city">State</label>
+                                    <input type="text" ng-disabled="true" placeholder="" class="form-control" id="state" ng-model="state"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    <form class="form-inline justify-content-between">
+                        <div class="form-group form-inline">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input">
+                                    Craigslist
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input">
+                                    Ebay
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="sortSelect">Sort&nbsp;</label>
+                            <select class="form-control" id="sortSelect" ng-model="sortSelected" ng-disabled="results.length == 0" ng-change="sortSelect()">
+                                <option value="price:false">Price: Low to High</option>
+                                <option value="price:true">Price: High to Low</option>
+                                <option value="startDateTime:true">Date Posted: Latest</option>
+                                <option value="startDateTime:false">Date Posted: Oldest</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group col-md-5">
-                <label for="advancedSearchInput"   ng-hide="city.length == 0">Search Query</label>
-                <input type="text" ng-hide="city.length == 0" class="form-control col-md-11" id="advancedSearchInput" ng-model="advancedSearchInput" ng-change="advancedSearch()"/>
-            </div>
-        </form>
-    </div>
-    <hr/>
-    <div ng-show="results.length > 0">
-        <div class="row justify-content-end">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="sortSelect">Sort&nbsp;</label>
-                    <select class="form-control" id="sortSelect" ng-model="sortSelected" ng-change="sortSelect()">
-                      <option value="price:false">Price: Low to High</option>
-                      <option value="price:true">Price: High to Low</option>
-                      <option value="startDateTime:true">Date Posted: Latest</option>
-                      <option value="startDateTime:false">Date Posted: Oldest</option>
-                    </select>
-                  </div>
-            </form>
+
         </div>
+    </div>
+    <hr style="width:100%;"/>
+    <div ng-show="results.length > 0">
 
         <table class="table table-bordered">
             <thead class="thead-default">

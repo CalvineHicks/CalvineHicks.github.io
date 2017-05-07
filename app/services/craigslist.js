@@ -5,7 +5,6 @@ var xpath = require('xpath');  //xpath parser
 var dom = require('xmldom').DOMParser; //dom obj for xpath
 
 router.get('/craigslist', function(req, res) {
-console.log('getting craigslist data');
 var city = req.query.city.toUpperCase();
 var queryString = req.query.queryString;
 request('http://'+city+'.craigslist.org/search/sss?format=rss&query='+queryString+'', function (error, response, body) {

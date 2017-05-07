@@ -3,7 +3,6 @@ var router = express.Router();
 var request = require('request');
 
 router.get('/getZip', function(req, res) {
-    console.log('new zip request'+req.query.zipCode);
      request('http://maps.googleapis.com/maps/api/geocode/json?address='+req.query.zipCode+'&sensor=false', function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var results = JSON.parse(body);
@@ -12,7 +11,6 @@ router.get('/getZip', function(req, res) {
                     var response = {};
                 for(i in result['address_components']){
                     var addr = result['address_components'][i];
-                    console.log(addr);
                     if(addr['types']){
                         if(addr['types'].indexOf('locality')>-1 || addr['types'].indexOf('postal_town')>-1){
                            response['city'] = addr['long_name'];
