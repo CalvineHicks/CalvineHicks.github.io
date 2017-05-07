@@ -11,6 +11,7 @@ var bodyParser = require('body-parser'); //parse incoming POST body
 var MongoClient = require('mongodb').MongoClient; //mongo database
 var properties = require('./properties.js');
 var path = require('path');
+var json2csv = require('json2csv');
 
 // CORS header securiy
 app.use(function (req, res, next) {
@@ -98,6 +99,31 @@ app.post('/logUserSearch', function(req, res) {
             res.json('success');
 });
 
+app.get('/getUserSearchReport', function(req, res) {
+    var fields = ['ipAddress', 'city', 'state', 'country', 'date', 'clickedLink'];
+    var fieldNames = ['IP Address', 'City', 'State', 'Country', 'Date of Visit', 'Clicked Link'];
+
+    db.collection('usersearches').find().toArray(function(err, docs) {
+        var results = [];
+        for(var i in docs){
+            var visits = docs[i]['visits'];
+            for(var j in visits){
+                var result = {};
+                result['ipAddress'] = docs[i]['ipAddress'];
+                result['city'] = docs[i]['city'];
+                result['state'] = docs[i]['state'];
+                result['country'] = docs[i]['country'];
+                result['date'] = visits[j]['date'];
+                result['clickedLink'] = visits[j]['clickedLink'];
+                results.push(result);
+            }
+        }
+        var data = json2csv({ data: results, fields: fields, fieldNames: fieldNames });
+        res.attachment('filename.csv');
+        res.set('Content-Type', 'application/octet-stream');
+        res.status(200).send(data);
+    });
+});
 
 app.use(express.static(path.join(__dirname, 'public')));
 
