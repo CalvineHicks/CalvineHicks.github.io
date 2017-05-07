@@ -25,7 +25,8 @@ request('http://'+city+'.craigslist.org/search/sss?format=rss&query='+queryStrin
 
         var title = select('//*[name()="title"]/text()' , item)[0].toString();
         title = title.substring(title.lastIndexOf('<![CDATA')+9, title.lastIndexOf(']]>')).replace('&#x0024;','$');
-        responseModel['title'] = title;
+        //replace takes 'A SAMPLE SENTENCE' and makes it 'A Sample Sentence', or 'a sample sentence' to 'A Sample Sentence'
+        responseModel['title'] = title.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 
         var price = title.substring(title.lastIndexOf('$', title.length));
         responseModel['price'] = price;

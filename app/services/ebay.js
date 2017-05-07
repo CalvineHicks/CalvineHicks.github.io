@@ -20,7 +20,8 @@ var queryString = req.query.queryString;
                 if(items){
                     for(i in items){
                         var result = {};
-                        result['title'] = items[i]['title'][0];
+                        //replace takes 'A SAMPLE SENTENCE' and makes it 'A Sample Sentence', or 'a sample sentence' to 'A Sample Sentence'
+                        result['title'] = items[i]['title'][0].replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
                         result['price'] = '$'+items[i]['sellingStatus'][0]['currentPrice'][0]['__value__'];
                         //TODO add exception handling to each field, if field not found give default value
                         try {
@@ -28,7 +29,10 @@ var queryString = req.query.queryString;
                         }
                         catch (err){ result['shippingPrice'] = 'No Shipping Info Available' }
                         result['link'] = items[i]['viewItemURL'][0];
-                        result['description'] = items[i]['primaryCategory'][0]['categoryName'][0];
+                        try {
+                        result['description'] = items[i]['subtitle'][0];
+                        }
+                        catch (err){ result['description'] = 'No Description Available' }
                         result['thumbnail'] = items[i]['galleryURL'][0];
                         try {
                             result['imageLink'] = items[i]['galleryPlusPictureURL'][0];

@@ -1,13 +1,13 @@
 <div ng-controller="SearchController">
-    <h3 class="">Advanced Search</h3>
+    <h3></h3>
     <div class="justify-content-center row">
         <div class="card col-md-8">
             <div class="card-block">
                 <div class="row">
-                    <form class="form" style="margin-bottom:-15px;">
+                    <form class="form col-md-12">
                         <div class="form-group col-md-12">
                             <div class="input-group justify-content-center">
-                                <input type="text" ng-hide="zipCode.length < 5" class="form-control col-md-10" id="advancedSearchInput" ng-model="advancedSearchInput"/>
+                                <input type="text" ng-hide="zipCode.length < 5" class="form-control col-md-8" id="advancedSearchInput" ng-model="advancedSearchInput"/>
                                 <input type="text" ng-disabled="true" ng-show="zipCode.length < 5" data-toggle="tooltip" data-placement="top" title="Zip Code is Required to Search" class="form-control col-md-8" id="advancedSearchInput" ng-model="advancedSearchInput"/>
                                 <button type="submit" ng-disabled="true" ng-show="zipCode.length < 5"class="btn btn-primary col-md-2" ng-click="advancedSearch()" data-toggle="tooltip" data-placement="top" title="Zip Code is Required to Search">Search</button>
                                 <button type="submit"  ng-hide="zipCode.length < 5" class="btn btn-primary col-md-2" ng-click="advancedSearch()" data-toggle="tooltip" data-placement="top" title="Zip Code is Required to Search">Search</button>
@@ -23,7 +23,7 @@
                                 <input type="text" ng-disabled="true" placeholder="Please Enter Zip Code" class="form-control" id="city" ng-model="city"/>
                             </div>
                             <div class="form-group col-md-2">
-                                <div class="col-md-9" style="padding-left:0px;">
+                                <div class="col-md-10" style="padding-left:0px;">
                                     <label for="city">State</label>
                                     <input type="text" ng-disabled="true" placeholder="" class="form-control" id="state" ng-model="state"/>
                                 </div>
@@ -32,18 +32,20 @@
                     </form>
                 </div>
                 <div class="row">
-                    <form class="form-inline justify-content-between">
+                    <form class="form-inline col-md-12 justify-content-between">
                         <div class="form-group form-inline">
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input">
-                                    Craigslist
+                                    <input type="checkbox" ng-disabled="results.length == 0" ng-change="toggleResults()" ng-model="includeCraigslist" class="form-check-input">
+                                    Craigslist ({{craigslistResults.length}})
                                 </label>
                             </div>
+                            &nbsp;
+                            &nbsp;
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input">
-                                    Ebay
+                                    <input type="checkbox" ng-disabled="results.length == 0" ng-change="toggleResults()" ng-model="includeEbay" class="form-check-input">
+                                    Ebay ({{ebayResults.length}})
                                 </label>
                             </div>
                         </div>
@@ -63,32 +65,28 @@
         </div>
     </div>
     <hr style="width:100%;"/>
-    <div ng-show="results.length > 0">
-
-        <table class="table table-bordered">
-            <thead class="thead-default">
-                <th>Preview</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Description</th>
-                <th>Date Posted</th>
-            </thead>
-            <tbody>
-                <tr ng-repeat="result in results | orderBy:sortType:sortReverse">
-                    <td><img ng-src="{{result.thumbnail || result.imageLink}}" alt="" class="img-thumbnail"></td>
-                    <td>{{ result.title }}</td>
-                    <td>
-                        <div ng-if="result.shippingPrice">
-                            Base:&nbsp;{{ result.price }}<br/>Shipping:&nbsp;{{ result.shippingPrice}}
+    <div ng-hide="results.length == 0" class="row justify-content-center">
+        <!-- results grid -->
+        <div class="card col-md-10" ng-repeat="result in results | orderBy:sortType:sortReverse">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-2">
+                    <div class="card-img-bottom">
+                        <img class="img-thumbnail" ng-src="{{result.thumbnail || result.imageLink}}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-10 row">
+                        <div class="col-md-10">
+                            <h4 class="card-title">{{ result.title }}</h4>
+                            <h6 class="card-subtitle mb-2 text-muted">{{result.site}}</h6>
+                            <p class="card-text" style="margin-bottom:0px;">Price: {{result.price}}</p>
+                            <p class="card-text" ng-show="result.shippingPrice">Shipping: {{result.shippingPrice}}</p>
+                            <p class="card-text">{{result.description}}</p>
                         </div>
-                        <div ng-if="!result.shippingPrice">
-                            {{ result.price }}
+                        <div class="row col-md-2 align-items-center justify-content-center">
+                            <a href="" class="card-link">View on {{result.site}}</a>
                         </div>
-                    </td>
-                    <td>{{ result.description }}</td>
-                    <td>{{ result.startDateTime | date : short}}</td>
-                </tr>
-            </tbody>
-        </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

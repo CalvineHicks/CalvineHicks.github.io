@@ -1,14 +1,16 @@
 app.controller('SearchController', function SearchController($scope, $http) {
 
-  $scope.advancedSearchInput = '';
-    $scope.zipCode = '';
-    $scope.city = '';
-    $scope.state = '';
+  $scope.advancedSearchInput = 'chair';
+    $scope.zipCode = '80202';
+    $scope.city = 'Denver';
+    $scope.state = 'CO';
     $scope.results = [];
     $scope.craigslistResults = [];
     $scope.ebayResults = [];
 
   $scope.advancedSearch = function(){
+    $scope.loadingResults=true;
+    $scope.loadingResultsProgress=20;
     $scope.ebayResults = [];
     $scope.craigslistResults = [];
     $scope.results = [];
@@ -23,7 +25,7 @@ app.controller('SearchController', function SearchController($scope, $http) {
         $scope.sortType     = args[0];
         $scope.sortReverse  = (args[1] == 'true');
     };
-    
+
     $http({
       method: 'GET',
       headers: {
@@ -32,7 +34,10 @@ app.controller('SearchController', function SearchController($scope, $http) {
       url: 'http://localhost:8080/ebay/?queryString='+$scope.advancedSearchInput
     }).then(function successCallback(response) {
         $scope.ebayResults = response['data'];
-        $scope.results = $scope.results.concat(response['data']);
+        for(var i in $scope.ebayResults){
+            $scope.ebayResults[i]['site'] = 'Ebay';
+        }
+        $scope.results = $scope.results.concat($scope.ebayResults);
       }, function errorCallback(response) {
         console.log('error');
         console.log(response);
@@ -46,12 +51,21 @@ app.controller('SearchController', function SearchController($scope, $http) {
       url: 'http://localhost:8080/craigslist/?city='+$scope.city+'&queryString='+$scope.advancedSearchInput
       }).then(function successCallback(response) {
         $scope.craigslistResults = response['data'];
-        $scope.results = $scope.results.concat(response['data']);
+        for(var i in $scope.craigslistResults){
+            $scope.craigslistResults[i]['site'] = 'Craigslist';
+        }
+        $scope.results = $scope.results.concat($scope.craigslistResults);
       }, function errorCallback(response) {
         console.log('error');
         console.log(response);
       });
+
+    $scope.loadingResults=false;
   };
+
+
+    $scope.includeCraigslist = true;
+    $scope.includeEbay = true;
 
   $scope.zipCodeToCity = debounce(function(){
     $http({
@@ -73,6 +87,16 @@ app.controller('SearchController', function SearchController($scope, $http) {
             console.log(response);
           });
   }, 500, false);
+
+  $scope.toggleResults = function(){
+    $scope.results = [];
+    if($scope.includeCraigslist){
+        $scope.results = $scope.results.concat($scope.craigslistResults);
+    }
+    if($scope.includeEbay){
+        $scope.results = $scope.results.concat($scope.ebayResults);
+    }
+  };
 
 });
 
