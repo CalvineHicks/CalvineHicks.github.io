@@ -22,10 +22,10 @@ var queryString = req.query.queryString;
                         var result = {};
                         //replace takes 'A SAMPLE SENTENCE' and makes it 'A Sample Sentence', or 'a sample sentence' to 'A Sample Sentence'
                         result['title'] = items[i]['title'][0].replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-                        result['price'] = '$'+items[i]['sellingStatus'][0]['currentPrice'][0]['__value__'];
+                        result['price'] = items[i]['sellingStatus'][0]['currentPrice'][0]['__value__'];
                         //TODO add exception handling to each field, if field not found give default value
                         try {
-                            result['shippingPrice'] = '$'+items[i]['shippingInfo'][0]['shippingServiceCost'][0]['__value__'];
+                            result['shippingPrice'] = items[i]['shippingInfo'][0]['shippingServiceCost'][0]['__value__'];
                         }
                         catch (err){ result['shippingPrice'] = 'No Shipping Info Available' }
                         result['link'] = items[i]['viewItemURL'][0];

@@ -8,6 +8,8 @@
 	<script src="lib/tether-1.4.0/dist/js/tether.min.js"></script>
 	<script src="lib/bootstrap-4.0.0-alpha.6/js/bootstrap.js"></script>
 	<script src="js/controller/searchController.js"></script>
+	<script src="js/controller/guidedSearchController.js"></script>
+	<script src="js/controller/navController.js"></script>
 	<script src="js/navbar.js"></script>
 	<script src="js/cookieService.js"></script>
 	<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.6/css/bootstrap.min.css">
@@ -19,26 +21,53 @@
 </header>
 
 <body ng-app="myApp">
-	<div class="row" style="height: 60px;">
-		<div class ="col align-self-start">
-			<a href="#/" id="logo"><h1 class="display-4 col-md-6">AT Finder</h1>
+	<nav class="navbar navbar-default navbar-toggleable-sm navbar-fixed-top navbar-light bg-faded">
+		<div class="col-md-2 align-self-start">
+			<a id="logo" class="navbar-brand" href="#">AT Finder</a>
+		</div>
+		<div class="col-md-7 align-self-start">
+			<ul bs-active-link class="nav navbar-nav">
+			  	<li id="Home" class="nav-item">
+					<a href="#/" class="nav-link text-center">Home</a>
+				</li>
+				<li id="Assistive Technologies" class="nav-item">
+					<a href="" data-toggle="collapse" data-target="#navbarToggleATList" class="nav-link text-center">Assistive Technologies</a>
+				</li>
+			  	<li id="Search" class="nav-item">
+					<a href="#/Search" class="nav-link text-center">Advanced Search</a>
+				</li>
+			  	<li id="FAQs" class="nav-item">
+					<a href="#/AboutUs" class="nav-link text-center">About</a>
+				</li>
+			  	<li id="Resources" class="nav-item">
+					<a href="#/Resources" class="nav-link text-center">Resources</a>
+				</li>
+			  	<li id="ContactUs" class="nav-item">
+					<a href="#/ContactUs" class="nav-link text-center">Contact</a>
+				</li>
+			</ul>
+		</div>
+		<div class="col-md-3 align-self-end align-items-start">
+			<a class="navbar-brand" href="http://www.ucdenver.edu/academics/colleges/medicalschool/programs/atp/Pages/AssistiveTechnologyPartners.aspx" target="_blank" class="col-md-3 offset-md-5">
+				<img src="images/atp.png" alt="Assistive Technology Partners Link" height="15" width="200">
 			</a>
 		</div>
-		<div class ="col align-self-end">
-			<a href="http://www.ucdenver.edu/academics/colleges/medicalschool/programs/atp/Pages/AssistiveTechnologyPartners.aspx" target="_blank" class="col-md-3 offset-md-5">
-				<img src="images/atp.png" alt="Assistive Technology Partners Link" style="border-width:0px; width: 300px;">
-			</a>
+	</nav>
+	<div class="collapse" id="navbarToggleATList" ng-controller="NavController">
+		&nbsp;
+		<div class="row col-md-12 justify-content-center">
+			<div ng-repeat="category in categories" class="col-md-3">
+				<h6 style="text-bold">{{category}}</h6>
+				<dt class="col-md-12">
+					<dd class="col-md-12 col-md-offset-1" ng-repeat="subCategory in subCategories[category]">
+						<a data-toggle="collapse" data-target="#navbarToggleATList" href="#/at/{{category}}/{{subCategory.title}}/{{subCategory.queryString}}">
+							{{subCategory.title}}
+						</a>
+					</dd>
+				</dt>
+			</div>
 		</div>
 	</div>
-	<nav class="navbar navbar-default navbar-toggleable-sm navbar-fixed-top navbar-light bg-faded align-self-start">
-		    <ul class="nav navbar-nav">
-		      <li id="Home" class="nav-item"><a href="#/" class="nav-link">Home</a></li>
-		      <li id="Search" class="nav-item"><a href="#/Search" class="nav-link">Advanced Search</a></li>
-		      <li id="FAQs" class="nav-item"><a href="#/AboutUs" class="nav-link">About Us</a></li>
-		      <li id="Resources" class="nav-item"><a href="#/Resources" class="nav-link">AT Resources</a></li>
-		      <li id="ContactUs" class="nav-item"><a href="#/ContactUs" class="nav-link">Contact Us</a></li>
-		    </ul>
-	</nav>
     <div ng-view></div>
     <div id="footer">		
         <div class="row">

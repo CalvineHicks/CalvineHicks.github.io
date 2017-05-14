@@ -1,0 +1,30 @@
+[
+  {
+    "categoryTitle" : "Wheelchairs & Accessories",
+    "subCategory":[
+      {
+        "categoryTitle" : "Wheelchairs",
+        "queryString" : "wheelchair"
+      }
+    ],
+    "subCategory":[
+      {
+        "categoryTitle" : "Transport Chairs",
+        "queryString" : "transport chair"
+      }
+    ]
+  },
+  {
+    "categoryTitle" : "Hearing Assistive Technology",
+    "subCategory":[
+      {
+        "categoryTitle" : "Hearing Aids",
+        "queryString" : "hearing aid"
+      },
+      {
+        "categoryTitle" : "Personal Amplifiers",
+        "queryString" : "hearing aid"
+      }
+    ]
+  }
+]

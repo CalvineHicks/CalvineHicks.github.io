@@ -3,8 +3,13 @@ app.config(function($routeProvider,$locationProvider) {
     $routeProvider.when("/", {
         templateUrl : "views/home.html"
     })
+    .when("/at/:category/:subCategory/:queryString", {
+            templateUrl : "views/atGuidedSearch.html",
+            controller: 'GuidedSearchController'
+        })
     .when("/Search", {
-        templateUrl : "views/search.html"
+        templateUrl : "views/search.html",
+        controller: 'SearchController'
     })
     .when("/AboutUs", {
         templateUrl : "views/aboutUs.html"
@@ -24,6 +29,31 @@ app.controller('scrollLinks', function($scope, $location, $anchorScroll) {
       $anchorScroll();
    }
 });
+
+/*
+*   This directive will allow navbar link clicks to change the page location
+*/
+app.directive('bsActiveLink', ['$location', function ($location) {
+return {
+    restrict: 'A', //use as attribute
+    replace: false,
+    link: function (scope, elem) {
+        //after the route has changed
+        scope.$on("$routeChangeSuccess", function () {
+            var hrefs = ['/#' + $location.path(),
+                         '#' + $location.path(), //html5: false
+                         $location.path()]; //html5: true
+            angular.forEach(elem.find('a'), function (a) {
+                a = angular.element(a);
+                if (-1 !== hrefs.indexOf(a.attr('href'))) {
+                    a.parent().addClass('active');
+                } else {
+                    a.parent().removeClass('active');
+                };
+            });
+        });
+    }
+}}]);
 
 app.controller('cookieController', ['$scope', function($scope) {
 $scope.reasonForSearchData = {

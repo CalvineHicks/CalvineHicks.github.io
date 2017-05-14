@@ -29,7 +29,13 @@ request('http://'+city+'.craigslist.org/search/sss?format=rss&query='+queryStrin
         responseModel['title'] = title.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 
         var price = title.substring(title.lastIndexOf('$', title.length));
-        responseModel['price'] = price;
+        price = parseInt(price.replace('$',''), 10);
+        if(isNaN(price)){
+            responseModel['price'] = 'Not Available';
+        }
+        else{
+            responseModel['price'] = price;
+        }
 
         var link = select('//*[name()="link"]/text()' , item)[0].toString();
         responseModel['link'] = link;
