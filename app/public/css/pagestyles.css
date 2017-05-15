@@ -2,30 +2,14 @@ html, body {
     max-width: 100%;
     overflow-x: hidden;
 }
-
-@media screen and (min-width: 1200px){
-	.container{
-		width:800px !important;
-	}
-}
-@media screen and (min-width: 992px){
-	.container{
-		width:800px !important;
-	}
-}
-@media screen and (min-width: 1100px){
-	#home{
-  		padding-left:0px;
-	}
-}
-img{
-    height: auto;
+#ng-view {
+    padding-top: 15px;
 }
 #footer{
   text-align:center;
   margin:0 auto;
 }
-hr {
+hr !.divider{
     height: 2px;
     background-color:#555;
     width: 75%;
@@ -53,4 +37,13 @@ hr {
 }
 .text-center{
   text-align: center;	
+}
+.no-margin{
+    margin:0;
+}
+.no-padding{
+    padding:0;
+}
+.no-border{
+    border:0;
 }

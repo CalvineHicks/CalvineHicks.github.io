@@ -1,92 +1,98 @@
-<div class="col-md-12">
-    <div class="row col-md-12 col-md-offset-1">
-        <h4>
-            {{category}}
-            <small class="text-muted">{{subCategory}}</small>
-        </h4>
+
+<div class="row col-md-12 justify-content-center">
+    <div class="row col-md-12">
+        <div class="row col-md-5 offset-md-1">
+            <h4>
+                {{category}}
+                <small class="text-muted">{{subCategory}}</small>
+            </h4>
+        </div>
+        <div class="row col-md-12 justify-content-end">
+            <form class="form-inline">
+                <div class="form-group col-md-12">
+                    <label for="sortSelect">Sort&nbsp;</label>
+                    <select class="form-control" id="sortSelect" ng-model="sortSelected" ng-disabled="results.length == 0" ng-change="sortSelect()">
+                        <option value="price:false">Price: Low to High</option>
+                        <option value="price:true">Price: High to Low</option>
+                        <option value="startDateTime:true">Date Posted: Latest</option>
+                        <option value="startDateTime:false">Date Posted: Oldest</option>
+                    </select>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="justify-content-center row">
-        <div class="card col-md-10">
-            <div class="card-block">
-                <div class="row col-md-12">
-                    <form class="form-inline col-md-12 row justify-content-center">
-                        <div class="form-group form-inline col-md-5">
-                            <div class="form-check col-md-6">
-                                <label class="form-check-label">
-                                    <input type="checkbox" ng-disabled="results.length == 0" ng-change="toggleResults()" ng-model="includeCraigslist" class="form-check-input">
-                                    Craigslist ({{craigslistResults.length}})
-                                </label>
-                            </div>
-                            <div class="form-check col-md-6">
-                                <label class="form-check-label">
-                                    <input type="checkbox" ng-disabled="results.length == 0" ng-change="toggleResults()" ng-model="includeEbay" class="form-check-input">
-                                    Ebay ({{ebayResults.length}})
-                                </label>
-                            </div>
+    <div class="row col-md-3">
+        <div class="card">
+            <div class="card-block  no-padding no-margin">
+                <form class="form">
+                    <div class="form-group col-md-12" ng-class="{'has-danger' : zipCode.length < 5, 'has-success' : zipCode.length == 5}">
+                        <label for="zipCode" ng-class="{'text-danger' : zipCode.length < 5}"><strong>Zip Code</strong></label>
+                        <input type="text" class="form-control" ng-class="{'form-control-danger' : zipCode.length < 5, 'form-control-success' : zipCode.length == 5}" id="zipCode" ng-model="zipCode" ng-change="zipCodeToCity()"/>
+                    </div>
+                    <div class="form-group col-md-12" ng-hide="city" >
+                        <label for="location2"><strong>Location</strong></label>
+                        <input type="text" ng-disabled="true" placeholder="Please Enter Zip Code" ng-show="zipCode < 5" class="form-control col-md-12" id="location2"/>
+                    </div>
+                    <div class="form-group col-md-12" ng-show="city">
+                        <label for="location"><strong>Location</strong></label>
+                        <input type="text" ng-disabled="true" placeholder="Please Enter Zip Code" class="form-control col-md-12" id="location" ng-value="city+', '+ state"/>
+                    </div>
+                    <label class="col" for="includeResultCheckboxes"><strong>Sites</strong></label>
+                    <div id="includeResultCheckboxes">
+                        <div class="form-check col-md-12">
+                            <label class="form-check-label">
+                                <input type="checkbox" ng-disabled="!city || (results.length == 0 && (includeEbay || includeWalmart))" ng-change="toggleResults()" ng-model="includeCraigslist" class="form-check-input">
+                                Craigslist ({{craigslistResults.length}})
+                            </label>
                         </div>
-                        <div class="form-group col-md-2">
-                            <label for="minPrice">Price Min.&nbsp;</label>
-                            <input type="text" placeholder="" class="form-control col-md-8" id="minPrice" ng-model="minPrice"/>
+                        <div class="form-check col-md-12">
+                            <label class="form-check-label">
+                                <input type="checkbox" ng-disabled="results.length == 0 && (includeCraigslist || includeWalmart)" ng-change="toggleResults()" ng-model="includeEbay" class="form-check-input">
+                                Ebay ({{ebayResults.length}})
+                            </label>
                         </div>
-                        <div class="form-group col-md-2">
-                            <label for="maxPrice">Price Max.&nbsp;</label>
-                            <input type="text" placeholder="" class="form-control col-md-8" id="maxPrice" ng-model="maxPrice"/>
+                        <div class="form-check col-md-12">
+                            <label class="form-check-label">
+                                <input type="checkbox" ng-disabled="results.length == 0 && (includeEbay || includeCraigslist)" ng-change="toggleResults()" ng-model="includeWalmart" class="form-check-input">
+                                Walmart ({{walmartResults.length}})
+                            </label>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="sortSelect">Sort&nbsp;</label>
-                            <select class="form-control" id="sortSelect" ng-model="sortSelected" ng-disabled="results.length == 0" ng-change="sortSelect()">
-                                <option value="price:false">Price: Low to High</option>
-                                <option value="price:true">Price: High to Low</option>
-                                <option value="startDateTime:true">Date Posted: Latest</option>
-                                <option value="startDateTime:false">Date Posted: Oldest</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="row">
-                    <form class="form col-md-12 ">
-                        <div class="row justify-content-center">
-                            <div class="form-group col-md-2" ng-class="{'has-danger' : zipCode.length < 5, 'has-success' : zipCode.length == 5}">
-                                <label for="zipCode" ng-class="{'text-danger' : zipCode.length < 5}">Zip Code</label>
-                                <input type="text" class="form-control" ng-class="{'form-control-danger' : zipCode.length < 5, 'form-control-success' : zipCode.length == 5}" id="zipCode" ng-model="zipCode" ng-change="zipCodeToCity()"/>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="city">City</label>
-                                <input type="text" ng-disabled="true" placeholder="Please Enter Zip Code" class="form-control" id="city" ng-model="city"/>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <div class="col-md-10" style="padding-left:0px;">
-                                    <label for="city">State</label>
-                                    <input type="text" ng-disabled="true" placeholder="" class="form-control" id="state" ng-model="state"/>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="minPrice"><strong>Minimum Price</strong></label>
+                        <input type="text" placeholder="" class="form-control col-md-6" id="minPrice" ng-model="minPrice"/>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="maxPrice"><strong>Maximum Price</strong></label>
+                        <input type="text" placeholder="" class="form-control col-md-6" id="maxPrice" ng-model="maxPrice"/>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <div ng-hide="results.length == 0" class="row justify-content-center">
-        <!-- results grid -->
-        <div class="card col-md-10" ng-repeat="result in results | orderBy:sortType:sortReverse | filter: lessThan('price', maxPrice) | filter: greaterThan('price', minPrice)">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-md-2">
-                    <div class="card-img-bottom">
-                        <img height="100" width="100" class="img-thumbnail" ng-src="{{result.thumbnail || result.imageLink}}" alt="">
+    <div class="row col-md-9">
+        <div ng-hide="results.length == 0" class="row col-md-12 justify-content-center">
+            <!-- results grid -->
+            <div class="card col-md-12" ng-repeat="result in results | orderBy:sortType:sortReverse | filter: lessThan('price', maxPrice) | filter: greaterThan('price', minPrice)">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-2">
+                        <div class="card-img-bottom">
+                            <img height="100" width="100" class="img-thumbnail" ng-src="{{result.thumbnail || result.imageLink}}" alt="">
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-10 row">
-                    <div class="col-md-10">
-                        <h4 class="card-title">{{ result.title }}</h4>
-                        <h6 class="card-subtitle">Date Posted: {{result.startDateTime.substring(0, result.startDateTime.indexOf('T'))}}</h6>
-                        <div class="row col-md-12"></div>
-                        <p class="card-text" style="margin-bottom:0px;"><strong>Price:</strong> <span ng-show="isANumber(result.price)">$</span>{{result.price}}</p>
-                        <p class="card-text" ng-show="result.shippingPrice"><strong>Shipping:</strong> {{result.shippingPrice}}</p>
-                        <div class="row col-md-12"></div>
-                        <p class="card-text"><strong>Description:</strong> {{result.description}}</p>
-                    </div>
-                    <div class="row col-md-2 align-items-center justify-content-center">
-                        <a href="" ng-click="openResult(result.link)" class="card-link text-center">View on {{result.site}}</a>
+                    <div class="col-md-10 row">
+                        <div class="col-md-10">
+                            <h4 class="card-title">{{ result.title }}</h4>
+                            <h6 class="card-subtitle">Date Posted: {{result.startDateTime.substring(0, result.startDateTime.indexOf('T'))}}</h6>
+                            <div class="row col-md-12"></div>
+                            <p class="card-text" style="margin-bottom:0px;"><strong>Price:</strong> <span ng-show="isANumber(result.price)">$</span>{{result.price}}</p>
+                            <p class="card-text" ng-show="result.shippingPrice"><strong>Shipping:</strong> {{result.shippingPrice}}</p>
+                            <div class="row col-md-12"></div>
+                            <p class="card-text"><strong>Description:</strong> {{result.description}}</p>
+                        </div>
+                        <div class="row col-md-2 align-items-center justify-content-center">
+                            <a href="" ng-click="openResult(result.link)" class="card-link text-center">View on {{result.site}}</a>
+                        </div>
                     </div>
                 </div>
             </div>

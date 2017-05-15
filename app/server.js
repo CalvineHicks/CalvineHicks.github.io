@@ -135,6 +135,7 @@ app.get('/', function(req, res, next) {
 
 app.use(require('./services/craigslist'));
 app.use(require('./services/ebay'));
+app.use(require('./services/walmart'));
 app.use(require('./services/zipLookup'));
 
 // START THE SERVER
