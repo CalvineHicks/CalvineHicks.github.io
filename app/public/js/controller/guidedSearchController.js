@@ -43,28 +43,14 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
                 $scope.ebayResults[i]['site'] = 'Ebay';
             }
             $scope.results = $scope.results.concat($scope.ebayResults);
-        console.log($scope.results);
           }, function errorCallback(response) {
             console.log('error');
             console.log(response);
           });
 
-        $http({
-          method: 'GET',
-          headers: {
-            'Content-Type' : 'text/html'
-          },
-          url: 'http://'+window.location.host+'/craigslist/?city='+$scope.city+'&queryString='+$scope.queryString
-          }).then(function successCallback(response) {
-            $scope.craigslistResults = response['data'];
-            for(var i in $scope.craigslistResults){
-                $scope.craigslistResults[i]['site'] = 'Craigslist';
-            }
-            $scope.results = $scope.results.concat($scope.craigslistResults);
-          }, function errorCallback(response) {
-            console.log('error');
-            console.log(response);
-          });
+        if($scope.city == true){
+            $scope.craigslistSearch();
+        }
 
           for(var pageNum=1; pageNum<=5; pageNum++){
             $http({
@@ -113,7 +99,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
 
 
         $scope.guidedSearch();
-        $scope.includeCraigslist = true;
+        $scope.includeCraigslist = $scope.city == true;
         $scope.includeEbay = true;
         $scope.includeWalmart = true;
 

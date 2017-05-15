@@ -7,7 +7,7 @@ router.get('/walmart', function(req, res) {
     var queryString = req.query.queryString;
     var sort = req.query.sort;
     var order = req.query.order;
-    var endpoint = 'http://api.walmartlabs.com/v1/search?apiKey='+properties.walmart.app_key+'&query='+queryString;
+    var endpoint = 'http://api.walmartlabs.com/v1/search?apiKey='+properties.walmart.app_key+'&query='+queryString+'&categoryId=+976760_1005860_1224972';
     var pageNum = req.query.pageNum;
     if(sort){
         endpoint = endpoint + '&sort='+sort+'&order='+order;
@@ -23,7 +23,8 @@ router.get('/walmart', function(req, res) {
                 var item = items[i];
 
                 responseModel['title'] = item['name'];
-                responseModel['price'] = item['msrp'];
+                responseModel['price'] = item['msrp'] ? item['msrp'] : item['salePrice'];
+
                 responseModel['shippingPrice'] = item['standardShipRate'];
                 responseModel['link'] = item['productUrl'];
                 responseModel['description'] = item['shortDescription'];

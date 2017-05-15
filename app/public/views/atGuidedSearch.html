@@ -71,7 +71,12 @@
         </div>
     </div>
     <div class="row col-md-9">
-        <div ng-hide="results.length == 0" class="row col-md-12 justify-content-center">
+        <div ng-show="results.length == 0" class="row col-md-12">
+            <div class="alert alert-warning col-md-12" role="alert">
+                <strong>Warning!</strong> No results found, try refining your filters.
+            </div>
+        </div>
+        <div ng-hide="results.length == 0" class="row col-md-12">
             <!-- results grid -->
             <div class="card col-md-12" ng-repeat="result in results | orderBy:sortType:sortReverse | filter: lessThan('price', maxPrice) | filter: greaterThan('price', minPrice)">
                 <div class="row align-items-center justify-content-center">

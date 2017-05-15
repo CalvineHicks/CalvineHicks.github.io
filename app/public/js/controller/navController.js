@@ -1,7 +1,7 @@
 app.controller('NavController', function NavController($scope, $http) {
-    $scope.categories = ['Wheelchairs & Accessories', 'Hearing Assistance', 'Canes & Walkers'];
-    $scope.subCategories = {
-        'Wheelchairs & Accessories' : [
+    $scope.categories = [{
+        'title' : 'Wheelchairs & Accessories',
+        'subCategories' : [
             {
                 'title' : 'Wheelchairs',
                 'queryString' : 'wheelchair'
@@ -14,21 +14,31 @@ app.controller('NavController', function NavController($scope, $http) {
                  'title' : 'Electric Scooters',
                  'queryString' : 'electric scooter'
              }
-        ],
-        'Hearing Assistance' : [
+        ]
+    },
+    {
+        'title' : 'Hearing Assistance',
+        'subCategories' : [
             {
                 'title' : 'Hearing Aids',
                 'queryString' : 'hearing aid'
             }
-        ],
-         'Canes & Walkers' : [
+        ]
+    },
+    {
+         'title' : 'Canes & Walkers',
+         'subCategories' : [
              {
-                 'title' : 'Canes',
-                 'queryString' : 'cane'
+                 'title' : 'Adjustable Canes',
+                 'queryString' : 'adjustable cane'
              },
              {
                 'title' : 'Folding Canes',
                 'queryString' : 'folding cane'
+             },
+             {
+                 'title' : 'Wooden Canes',
+                 'queryString' : 'wooden cane'
              },
             {
               'title' : 'Walkers',
@@ -36,4 +46,5 @@ app.controller('NavController', function NavController($scope, $http) {
             }
          ]
     }
+    ];
 });

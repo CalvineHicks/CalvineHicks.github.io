@@ -57,10 +57,10 @@
 		&nbsp;
 		<div class="row col-md-12 justify-content-center">
 			<div ng-repeat="category in categories" class="col-md-3">
-				<h6 style="text-bold">{{category}}</h6>
+				<h6 style="text-bold">{{category.title}}</h6>
 				<dt class="col-md-12">
-					<dd class="col-md-12 col-md-offset-1" ng-repeat="subCategory in subCategories[category]">
-						<a data-toggle="collapse" data-target="#navbarToggleATList" href="#/at/{{category}}/{{subCategory.title}}/{{subCategory.queryString}}">
+					<dd class="col-md-12 col-md-offset-1" ng-repeat="subCategory in category.subCategories">
+						<a data-toggle="collapse" data-target="#navbarToggleATList" href="#/at/{{category.title}}/{{subCategory.title}}/{{subCategory.queryString}}">
 							{{subCategory.title}}
 						</a>
 					</dd>

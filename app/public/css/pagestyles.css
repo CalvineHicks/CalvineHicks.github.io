@@ -47,3 +47,22 @@ hr !.divider{
 .no-border{
     border:0;
 }
+
+.alert {
+    width: 300px;
+    height: 60px;
+    margin: 0 0 20px;
+}
+.alert:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -5px;
+}
+
+.alert .centered {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 10px 0 15px;
+}
