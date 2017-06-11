@@ -1,24 +1,39 @@
 
 <div class="row col-md-12 justify-content-center">
     <div class="row col-md-12">
-        <div class="row col-md-5 offset-md-1">
-            <h4>
-                {{category}}
-                <small class="text-muted">{{subCategory}}</small>
-            </h4>
+        <div class="row col-md-12"> 
+            <div class="form-group col-md-7">
+                <input type="text" class="form-control" id="search" placeholder="Search"></input>
+            </div>
+            <div class="form-group col-md-1 align-items-end alignItemCenter">
+                 <button type="button" class="btn btn-primary glyphicon glyphicon-search" style="">
+                        <strong>Search</strong>
+                 </button>
+            </div>
+
         </div>
-        <div class="row col-md-12 justify-content-end">
-            <form class="form-inline">
-                <div class="form-group col-md-12">
-                    <label for="sortSelect">Sort&nbsp;</label>
-                    <select class="form-control" id="sortSelect" ng-model="sortSelected" ng-disabled="results.length == 0" ng-change="sortSelect()">
-                        <option value="price:false">Price: Low to High</option>
-                        <option value="price:true">Price: High to Low</option>
-                        <option value="startDateTime:true">Date Posted: Latest</option>
-                        <option value="startDateTime:false">Date Posted: Oldest</option>
-                    </select>
+        <div class="row col-md-12">
+            <div class= "col-md-5">
+                <h4>
+                    in {{category}}
+                    <small class="text-muted">{{subCategory}}</small>
+                </h4>
+            </div>
+            <div class="col-md-7 d-flex justify-content-end">
+                <div class="justify-content-end">
+                <form class="form-inline">
+                    <div class="form-group col-md-12">
+                        <label for="sortSelect">Sort&nbsp;</label>
+                        <select class="form-control" id="sortSelect" ng-model="sortSelected" ng-disabled="results.length == 0" ng-change="sortSelect()">
+                            <option value="price:false">Price: Low to High</option>
+                            <option value="price:true">Price: High to Low</option>
+                            <option value="startDateTime:true">Date Posted: Newest</option>
+                            <option value="startDateTime:false">Date Posted: Oldest</option>
+                        </select>
+                    </div>
+                </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
     <div class="row col-md-3">

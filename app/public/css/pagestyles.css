@@ -47,6 +47,10 @@ hr !.divider{
 .no-border{
     border:0;
 }
+.alignItemCenter{
+    display:flex;    
+    align-items:center;
+  }
 
 .alert {
     width: 300px;
