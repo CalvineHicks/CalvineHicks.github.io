@@ -1,60 +1,75 @@
-<div class="col-md-12" style="margin-left:20%">
-	<div class="col-md-8">
+<div class="col-md-12" style="margin-left:15%">
+	<div class="card col-md-8" style="padding-right:5%;">
+	<div class="card-block">
   		<h3 >Search for Assistive Technology</h3>
-  		<p class="lead">*We require all of the following fields in order to maintain our government funding<br>and continue to provide this service*</p>
-  	<div ng-controller="cookieController">
-	    <div class="row">
-	   	  	<div class="form-group col-md-4">
-	  			<label for="reasonForSearch">Reason for Search</label>
-	  			<select type="text" class="form-control" id="reasonForSearch" ng-options="option.name for option in reasonForSearchData.availableOptions track by option.id"
-      			ng-model="reasonForSearchData.selectedOption"></select>
-			</div>
+  		<p class="lead">*We require all of the following fields in order to maintain our government funding*</p>
+	  	<div ng-controller="cookieController">
+		    <div class="row">
+		   	  	<div class="form-group col-md-4">
+		  			<label for="reasonForSearch" class="col-form-label">Reason for Search</label>
+		  			<select type="text" class="form-control" id="reasonForSearch" ng-options="option.name for option in reasonForSearchData.availableOptions track by option.id"
+	      			ng-model="reasonForSearchData.selectedOption"></select>
+				</div>
 
-			<div class="form-group col-md-3">
-	  			<label for="areaOfNeed" class="col-form-label">Area of Need</label>
-	  			<select type="text" class="form-control" id="reasonForSearch" ng-options="option.name for option in areaOfNeedData.availableOptions track by option.id"
-      			ng-model="areaOfNeedData.selectedOption">
-			   	</select>		
-			</div>
+				<div class="form-group col-md-3">
+		  			<label for="areaOfNeed" class="col-form-label">Area of Need</label>
+		  			<select type="text" class="form-control" id="reasonForSearch" ng-options="option.name for option in areaOfNeedData.availableOptions track by option.id"
+	      			ng-model="areaOfNeedData.selectedOption">
+				   	</select>		
+				</div>
 
-			<div class="form-group col-md-5">
-	  			<label for="typeOfAT" class="col-form-label">Type of AT Device</label>
-	  			<select type="text" class="form-control" id="typeOfAT" ng-options="option.name for option in typeOfAtDeviceData.availableOptions track by option.id"
-      			ng-model="typeOfAtDeviceData.selectedOption">
-			   	</select>		
+				<div class="form-group col-md-5">
+		  			<label for="typeOfAT" class="col-form-label">Type of AT Device</label>
+		  			<select type="text" class="form-control" id="typeOfAT" ng-options="option.name for option in typeOfAtDeviceData.availableOptions track by option.id"
+	      			ng-model="typeOfAtDeviceData.selectedOption">
+				   	</select>		
+				</div>
 			</div>
 		</div>
-	</div>
 		<div class="row">
 			<div class="form-group col-md-7">
 				<label for="search">Search</label>
 	  			<input type="text" class="form-control" id="search" placeholder="Search"></input>
 			</div>
 			<div class="alignItemCenter">
-				<span>near</span>
+				<span class="large-text pt-3">near</span>
 			</div>
 			<div class="form-group col-md-3">
 				<label for="zipCode">Zip Code</label>
 	  			<input type="text" class="form-control" id="zipCode" placeholder="zipCode"></input>
 			</div>
 			<div class="form-group col-md-1 align-items-end alignItemCenter">
-			 <button type="button" class="btn btn-primary glyphicon glyphicon-search" style="margin-top:10.75%;">
-	  				<strong>Search</strong>
-	  	     </button>
+				 <button type="button" class="btn btn-primary glyphicon glyphicon-search" style="margin-top:10.75%;">
+		  				<strong>Search</strong>
+		  	     </button>
 	  	 	</div>
 	  	 	<div class="offset-md-11">
 		  	     	<a href="#/Search">advanced</a>
 		  	 </div>
   	 	</div>
-  	 </div>
+  	</div>
+  	</div>
 </div>
-<div class="row">
-	<hr class="mt-2">
-</div>
-<div class="col-md-12" style="margin-left:20%">
-	<div style="width: 600px;">
-		<div class="row">
-			<h3>Search Categories</h3>
+	<hr class="divider" style="margin-left:17%; margin-right:18%; margin-top:2%; margin-bottom:2%;" >
+<div class="col-md-12" style="margin-left:17%">
+	<div class="row">
+		<h3>Search By Category</h3>
+	</div>
+	<div class="row">
+		<div class="col-md-12" id="navbarToggleATList" ng-controller="NavController">
+		&nbsp;
+			<div class="row col-md-12">
+				<div ng-repeat="category in categories" class="col-md-3">
+					<h6 style="text-bold">{{category.title}}</h6>
+					<dt class="col-md-12">
+						<dd class="col-md-12 col-md-offset-1" ng-repeat="subCategory in category.subCategories">
+							<a data-toggle="collapse" data-target="#navbarToggleATList" href="#/at/{{category.title}}/{{subCategory.title}}/{{subCategory.queryString}}">
+									{{subCategory.title}}
+							</a>
+						</dd>
+					</dt>
+				</div>
+			</div>
 		</div>
-  	 </div>
+	</div>
 </div>

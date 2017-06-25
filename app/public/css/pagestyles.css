@@ -9,10 +9,19 @@ html, body {
   text-align:center;
   margin:0 auto;
 }
-hr !.divider{
-    height: 2px;
-    background-color:#555;
-    width: 75%;
+hr {
+  width:65%;
+  margin-left:17%;
+}
+.test{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20%);
+}
+#searchResultImg {
+  width:100%;
+  height: 100%;
 }
 .padding-left-s{
   padding-left:5%;
@@ -50,7 +59,7 @@ hr !.divider{
 .alignItemCenter{
     display:flex;    
     align-items:center;
-  }
+}
 
 .alert {
     width: 300px;
@@ -69,4 +78,19 @@ hr !.divider{
     display: inline-block;
     vertical-align: middle;
     padding: 0 10px 0 15px;
+}
+.large-text{
+  font-size: 150%;
+}
+.medium-text{
+  font-size: 125%;
+}
+.content-background{
+  background:#F0F8FF;
+}
+.secondary-background{
+  background:#6495ED;
+}
+.background{
+  background:#F0F8FF;
 }
