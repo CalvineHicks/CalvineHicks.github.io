@@ -7,6 +7,10 @@ app.config(function($routeProvider,$locationProvider) {
             templateUrl : "views/atGuidedSearch.html",
             controller: 'GuidedSearchController'
         })
+    .when("/at/:queryString", {
+            templateUrl : "views/atGuidedSearch.html",
+            controller: 'GuidedSearchController'
+        })
     .when("/Search", {
         templateUrl : "views/search.html",
         controller: 'SearchController'
@@ -58,10 +62,9 @@ return {
 app.controller('cookieController', ['$scope', function($scope) {
 $scope.reasonForSearchData = {
     availableOptions: [
-      {id: '1', name: ''},
-      {id: '2', name: 'Want affordable option'},
-      {id: '3', name: 'Want to find item easily'},
-      {id: '4', name: 'Could not find item elsewhere'}
+      {id: '1', name: 'Want affordable option'},
+      {id: '2', name: 'Want to find item easily'},
+      {id: '3', name: 'Could not find item elsewhere'}
     ],
     selectedOption: {id: '1', name: ''} //This sets the default value of the select in the ui
     };

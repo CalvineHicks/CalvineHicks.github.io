@@ -31,7 +31,7 @@ request('http://'+city+'.craigslist.org/search/sss?format=rss&query='+queryStrin
         var price = title.substring(title.lastIndexOf('$', title.length));
         price = parseInt(price.replace('$',''), 10);
         if(isNaN(price)){
-            responseModel['price'] = 'Not Available';
+            responseModel['price'] = 'Price Not Available';
         }
         else{
             responseModel['price'] = price;

@@ -3,22 +3,22 @@
     <div class="row col-md-12">
         <div class="row col-md-12"> 
             <div class="form-group col-md-7">
-                <input type="text" class="form-control" id="search" placeholder="Search"></input>
+                <input type="text" class="form-control" id="search" placeholder="Search" value="{{queryString}}"></input>
             </div>
             <div class="form-group col-md-1 align-items-end alignItemCenter">
-                 <button type="button" class="btn btn-primary glyphicon glyphicon-search" style="">
+                 <a type="button" class="btn btn-primary glyphicon glyphicon-search" style="" href="#/at/test">
                         <strong>Search</strong>
-                 </button>
+                 </a>
             </div>
 
         </div>
         <div class="row col-md-12">
             <div class= "col-md-5">
-                <h4>
+                <h4 ng-show="category">
                     in {{category}}
                     <small class="text-muted">{{subCategory}}</small>
                 </h4>
-            </div>
+           </div>
             <div class="col-md-7 d-flex justify-content-end">
                 <div class="justify-content-end">
                 <form class="form-inline">
@@ -109,7 +109,10 @@
                                 <span ng-show="isANumber(result.price)">$</span>{{result.price}}
                                 </strong>
                             </p>
-                            <p class="card-text" style="margin-bottom:0px;" ng-show="result.shippingPrice"><strong>Shipping:</strong><span ng-show="isANubmer(result.shippingPrice)">$</span>{{result.shippingPrice}}</p>
+                            <p class="card-text" style="margin-bottom:0px;" ng-show="result.shippingPrice">
+                                    <strong>Shipping:</strong>
+                                    <span>$</span>{{result.shippingPrice}}
+                            </p>
                             <p class="card-text"><strong>Date Posted:</strong> {{result.startDateTime.substring(0, result.startDateTime.indexOf('T'))}}</p>
                         </div>
                         

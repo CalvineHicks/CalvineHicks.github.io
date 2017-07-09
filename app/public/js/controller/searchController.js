@@ -19,6 +19,7 @@ app.controller('SearchController', function SearchController($scope, $http) {
     $scope.sortType     = 'price'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
     $scope.sortSelected = 'price:false';
+    console.log("test")
     
     $scope.sortSelect = function(){
         var args = $scope.sortSelected.split(':');
