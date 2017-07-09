@@ -3,10 +3,10 @@
     <div class="row col-md-12">
         <div class="row col-md-12"> 
             <div class="form-group col-md-7">
-                <input type="text" class="form-control" id="search" placeholder="Search" value="{{queryString}}"></input>
+                <input ng-model="queryString" type="text" class="form-control" id="search" placeholder="Search"></input>
             </div>
             <div class="form-group col-md-1 align-items-end alignItemCenter">
-                 <a type="button" class="btn btn-primary glyphicon glyphicon-search" style="" href="#/at/test">
+                 <a type="button" class="btn btn-primary glyphicon glyphicon-search" style="" href="#/at/{{zipCode}}/{{queryString}}">
                         <strong>Search</strong>
                  </a>
             </div>
@@ -42,7 +42,7 @@
                 <form class="form">
                     <div class="form-group col-md-12" ng-class="{'has-danger' : zipCode.length < 5, 'has-success' : zipCode.length == 5}">
                         <label for="zipCode" ng-class="{'text-danger' : zipCode.length < 5}"><strong>Zip Code</strong></label>
-                        <input type="text" class="form-control" ng-class="{'form-control-danger' : zipCode.length < 5, 'form-control-success' : zipCode.length == 5}" id="zipCode" ng-model="zipCode" ng-change="zipCodeToCity()"/>
+                        <input type="text" class="form-control" ng-class="{'form-control-danger' : zipCode.length < 5, 'form-control-success' : zipCode.length == 5}" id="zipCode" ng-model="zipCode" ng-change="zipCodeToCity()" ng-init="zipCodeToCity()"/>
                     </div>
                     <div class="form-group col-md-12" ng-hide="city" >
                         <label for="location2"><strong>Location</strong></label>

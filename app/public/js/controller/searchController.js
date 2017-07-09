@@ -1,7 +1,7 @@
 app.controller('SearchController', function SearchController($scope, $http) {
 
   $scope.advancedSearchInput = 'chair';
-    $scope.zipCode = '80202';
+    $scope.zipCode = '';
     $scope.city = 'Denver';
     $scope.state = 'CO';
     $scope.results = [];
@@ -19,8 +19,7 @@ app.controller('SearchController', function SearchController($scope, $http) {
     $scope.sortType     = 'price'; // set the default sort type
     $scope.sortReverse  = false;  // set the default sort order
     $scope.sortSelected = 'price:false';
-    console.log("test")
-    
+
     $scope.sortSelect = function(){
         var args = $scope.sortSelected.split(':');
         $scope.sortType     = args[0];

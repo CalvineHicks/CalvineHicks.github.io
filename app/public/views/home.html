@@ -29,17 +29,17 @@
 		<div class="row">
 			<div class="form-group col-md-7">
 				<label for="search">Search</label>
-	  			<input type="text" class="form-control" id="search" placeholder="Search"></input>
+	  			<input ng-model="queryString" type="text" class="form-control" id="search" placeholder="Search"></input>
 			</div>
 			<div class="alignItemCenter">
 				<span class="large-text pt-3">near</span>
 			</div>
 			<div class="form-group col-md-3">
 				<label for="zipCode">Zip Code</label>
-	  			<input type="text" class="form-control" id="zipCode" placeholder="zipCode"></input>
+	  			<input ng-model="zipCode" type="text" class="form-control" id="zipCode" placeholder="zipCode"></input>
 			</div>
 			<div class="form-group col-md-1 align-items-end alignItemCenter">
-				 <a type="button" class="btn btn-primary glyphicon glyphicon-search" style="margin-top:10.75%;" href="#/at/test">
+				 <a type="button" class="btn btn-primary glyphicon glyphicon-search" style="margin-top:10.75%;" href="#/at/{{zipCode}}/{{queryString}}">
 		  				<strong>Search</strong>
 		  	     </a>
 	  	 	</div>

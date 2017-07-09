@@ -2,7 +2,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         $scope.queryString = $routeParams.queryString;
         $scope.category = $routeParams.category;
         $scope.subCategory = $routeParams.subCategory;
-        $scope.zipCode = '';
+        $scope.zipCode = $routeParams.zipCode;
         $scope.city = '';
         $scope.state = '';
         $scope.results = [];
