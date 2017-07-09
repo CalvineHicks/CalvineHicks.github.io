@@ -213,3 +213,6 @@ compile_commands.json
 
 # dotenv environment variables file
 .env
+
+# file showing up in controller folder
+.Rhistory
