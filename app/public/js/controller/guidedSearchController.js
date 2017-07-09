@@ -10,9 +10,8 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         $scope.craigslistResults = [];
         $scope.ebayResults = [];
         $scope.maxPrice = 10;
-        $scope.minPrice = 0;
-
-      $scope.guidedSearch = function(){
+        $scope.minPrice = 0;   
+  $scope.guidedSearch = function(){
         $scope.loadingResults=true;
         $scope.loadingResultsProgress=20;
         $scope.ebayResults = [];
@@ -153,7 +152,6 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
             console.log(response);
           });
   }, 500, false);
-
   $scope.openResult = function(url){
     window.open(url,'_blank');
     window.open(url);
@@ -182,6 +180,5 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         console.log('error');
         console.log(response);
       });
-
   };
 }]);
