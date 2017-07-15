@@ -6,6 +6,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         $scope.city = '';
         $scope.state = '';
         $scope.results = [];
+        $scope.resultNumber = $scope.results.length;
         $scope.walmartResults = [];
         $scope.craigslistResults = [];
         $scope.ebayResults = [];

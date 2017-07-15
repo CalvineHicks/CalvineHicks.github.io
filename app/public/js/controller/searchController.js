@@ -53,7 +53,7 @@ app.controller('SearchController', function SearchController($scope, $http) {
   });
 
   $scope.searchRedirect = function(){
-    window.location.href = "#/at/"+$scope.zipCode+"/"+$scope.queryString;
+    window.location.href = "#/at/"+$scope.reasonForSearchData.selectedOption.name+"/"+$scope.areaOfNeedData.availableOptions.selected.name+"/"+$scope.typeOfAtDeviceData.availableOptions.selected.name+"/"+$scope.zipCode+"/"+$scope.queryString;
   };   
 
   $scope.advancedSearch = function(){

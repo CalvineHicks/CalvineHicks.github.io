@@ -12,6 +12,10 @@ app.config(function($routeProvider,$locationProvider) {
             templateUrl : "views/atGuidedSearch.html",
             controller: 'GuidedSearchController'
         })
+    .when("/at/:reasonForSearch/:areaOfNeed/:typeOfATDevice/:zipCode/:queryString", {
+            templateUrl : "views/atGuidedSearch.html",
+            controller: 'GuidedSearchController'
+        })
     .when("/Search", {
         templateUrl : "views/search.html",
         controller: 'SearchController'
