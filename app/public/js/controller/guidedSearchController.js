@@ -11,7 +11,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         $scope.ebayResults = [];
         $scope.maxPrice = 10;
         $scope.minPrice = 0;   
-  $scope.guidedSearch = function(){
+        $scope.guidedSearch = function(){
         $scope.loadingResults=true;
         $scope.loadingResultsProgress=20;
         $scope.ebayResults = [];
@@ -98,7 +98,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
 
 
         $scope.guidedSearch();
-        $scope.includeCraigslist = $scope.city == true;
+        $scope.includeCraigslist = true;
         $scope.includeEbay = true;
         $scope.includeWalmart = true;
 
@@ -165,10 +165,15 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
       }).then(function successCallback(response) {
         var data = response['data'];
 
-        userStats['city'] = data['city'];
-        userStats['state'] = data['region'];
-        userStats['country'] = data['countryCode'];
+        userStats['ipCity'] = data['city'];
+        userStats['ipState'] = data['region'];
+        userStats['ipCountry'] = data['countryCode'];
         userStats['ipAddress'] = data['query'];
+        userStats['userCity'] = $scope.city;
+        userStats['userState'] = $scope.state;
+        
+        //user entered questionairre
+        userStats['reasonForSearch'] = $scope.reasonForSearchData.selectedOption;
 
           $http({
                 method: 'POST',
@@ -182,3 +187,18 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
       });
   };
 }]);
+
+function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+};

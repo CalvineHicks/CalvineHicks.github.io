@@ -56,7 +56,7 @@
                     <div id="includeResultCheckboxes">
                         <div class="form-check col-md-12">
                             <label class="form-check-label">
-                                <input type="checkbox" ng-disabled="!city || (results.length == 0 && (includeEbay || includeWalmart))" ng-change="toggleResults()" ng-model="includeCraigslist" class="form-check-input">
+                                <input type="checkbox" ng-disabled="results.length == 0 && (includeEbay || includeWalmart)" ng-change="toggleResults()" ng-model="includeCraigslist" class="form-check-input">
                                 Craigslist ({{craigslistResults.length}})
                             </label>
                         </div>

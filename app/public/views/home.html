@@ -7,7 +7,7 @@
 			    <div class="row">
 			   	  	<div class="form-group col-md-4">
 			  			<label for="reasonForSearch" class="col-form-label"><strong>Reason for Search</strong></label>
-			  			<span ng-show="searchForm.reasonForSearch.$error.required" style="color:red">(required)</span>
+			  			<span style="color:red">*</span>
 			  			<select ng-required="true" type="text" class="form-control" id="reasonForSearch" name="reasonForSearch" ng-options="option.name for option in reasonForSearchData.availableOptions track by option.id" ng-model="reasonForSearchData.selectedOption" aria-required="true">
       						<option value=""></option>
 			  			</select>
@@ -15,7 +15,7 @@
 
 					<div class="form-group col-md-3">
 			  			<label for="areaOfNeed" class="col-form-label"><strong>Area of Need</strong></label>
-			  			<span ng-show="searchForm.areaOfNeed.$error.required" style="color:red">(required)</span>
+			  			<span style="color:red">*</span>
 			  			<select ng-required="true" type="text" class="form-control" id="areaOfNeed" name="areaOfNeed" ng-options="option.name for option in areaOfNeedData.availableOptions track by option.id"
 		      			ng-model="areaOfNeedData.availableOptions.selected" aria-required="true">
       						<option value=""></option>
@@ -24,7 +24,7 @@
 
 					<div class="form-group col-md-5">
 			  			<label for="typeOfAT" class="col-form-label"><strong>Type of AT Device</strong></label>
-			  			<span ng-show="searchForm.typeOfAT.$error.required" style="color:red">(required)</span>
+			  			<span style="color:red">*</span>
 			  			<select ng-required="true" type="text" class="form-control" id="typeOfAT" name="typeOfAT" ng-options="option.name for option in typeOfAtDeviceData.availableOptions track by option.id"
 		      			ng-model="typeOfAtDeviceData.availableOptions.selected" aria-required="true">
 	      					<option value=""></option>
@@ -34,7 +34,7 @@
 			<div class="row">
 				<div class="form-group col-md-7">
 					<label for="search"><strong>Search</strong></label>
-			  		<span ng-show="searchForm.search.$error.required" style="color:red">(required)</span>
+			  		<span style="color:red">*</span>
 		  			<input ng-model="queryString" ng-required="true" type="text" class="form-control" id="search" name="search" placeholder="Search" aria-required="true"></input>
 				</div>
 				<div class="alignItemCenter">
@@ -42,17 +42,14 @@
 				</div>
 				<div class="form-group col-md-3">
 					<label for="zipCode"><strong>Zip Code</strong></label>
-			  		<span ng-show="searchForm.zipCode.$error.required" style="color:red">(required)</span>
+			  		<span style="color:red">*</span>
 		  			<input ng-model="zipCode" ng-required="true" type="text" class="form-control" id="zipCode" name="zipCode" placeholder="zipCode"></input>
 				</div>
 				<div class="form-group col-md-1 align-items-end alignItemCenter">
-					 <button ng-click="searchForm.$valid && searchRedirect()" type="button" class="btn btn-primary glyphicon glyphicon-search" style="margin-top:10.75%;">
+					 <button ng-click="searchForm.$valid && searchRedirect()" type="submit" class="btn btn-primary glyphicon glyphicon-search" style="margin-top:10.75%;">
 			  				<strong>Search</strong>
 			  	     </button>
 		  	 	</div>
-		  	 	<div class="offset-md-11">
-			  	     	<a href="#/Search">advanced</a>
-			  	 </div>
 	  	 	</div>
 	  	 </form>
   	</div>

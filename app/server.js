@@ -20,7 +20,6 @@ app.use(function (req, res, next) {
     res.set('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Accept');
     // intercept OPTIONS method
         if ('OPTIONS' == req.method) {
-        console.log(req.method);
           res.send(200);
         }
         else {
@@ -76,9 +75,9 @@ app.post('/logUserSearch', function(req, res) {
             var visits = [];
             var visit = {};
             user['ipAddress'] = req.body['ipAddress'];
-            user['city'] = req.body['city'];
-            user['country'] = req.body['country'];
-            user['state'] = req.body['state'];
+            user['ipCity'] = req.body['ipCity'];
+            user['ipCountry'] = req.body['ipCountry'];
+            user['ipState'] = req.body['ipState'];
             user['visits'] = visits;
         }
         else{
@@ -87,6 +86,8 @@ app.post('/logUserSearch', function(req, res) {
             var visit = {};
         }
 
+        visit['reasonForSearch'] = req.body['reasonForSearch'];
+        
         visit['clickedLink'] = req.body['clickedLink'];
         visit['date'] = today;
         visits.push(visit);
@@ -114,6 +115,7 @@ app.get('/getUserSearchReport', function(req, res) {
                 result['state'] = docs[i]['state'];
                 result['country'] = docs[i]['country'];
                 result['date'] = visits[j]['date'];
+                result['clickedLink'] = visits[j]['clickedLink'];
                 result['clickedLink'] = visits[j]['clickedLink'];
                 results.push(result);
             }
