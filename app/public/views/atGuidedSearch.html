@@ -13,13 +13,16 @@
 
         </div>
         <div class="row col-md-12">
-            <div class= "col-md-5">
+            <div class= "col-md-8">
                 <h4 ng-show="category">
-                    {{resultNumber}} in {{category}}
+                    {{results.length}} results found in {{category}}
                     <small class="text-muted">{{subCategory}}</small>
                 </h4>
+                <h4 ng-hide="category">
+                    {{results.length}} results found for {{queryString}}
+                </h4>
            </div>
-            <div class="col-md-7 d-flex justify-content-end">
+            <div class="col-md-4 d-flex justify-content-end">
                 <div class="justify-content-end">
                 <form class="form-inline">
                     <div class="form-group col-md-12">
