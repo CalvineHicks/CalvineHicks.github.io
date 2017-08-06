@@ -17,7 +17,7 @@
 			  			<label for="areaOfNeed" class="col-form-label"><strong>Area of Need</strong></label>
 			  			<span style="color:red">*</span>
 			  			<select ng-required="true" type="text" class="form-control" id="areaOfNeed" name="areaOfNeed" ng-options="option.name for option in areaOfNeedData.availableOptions track by option.id"
-		      			ng-model="areaOfNeedData.availableOptions.selected" aria-required="true">
+		      			ng-model="areaOfNeedData.selectedOption" aria-required="true">
       						<option value=""></option>
 					   	</select>		
 					</div>
@@ -26,7 +26,7 @@
 			  			<label for="typeOfAT" class="col-form-label"><strong>Type of AT Device</strong></label>
 			  			<span style="color:red">*</span>
 			  			<select ng-required="true" type="text" class="form-control" id="typeOfAT" name="typeOfAT" ng-options="option.name for option in typeOfAtDeviceData.availableOptions track by option.id"
-		      			ng-model="typeOfAtDeviceData.availableOptions.selected" aria-required="true">
+		      			ng-model="typeOfAtDeviceData.selectedOption" aria-required="true">
 	      					<option value=""></option>
 					   	</select>		
 					</div>
@@ -54,27 +54,4 @@
 	  	 </form>
   	</div>
   	</div>
-</div>
-	<hr class="divider" style="margin-left:15%; margin-top:2%; margin-bottom:2%;" >
-<div class="col-md-12" style="margin-left:17%">
-	<div class="row">
-		<h3>Search By Category</h3>
-	</div>
-	<div class="row">
-		<div class="col-md-12" id="navbarToggleATList" ng-controller="NavController">
-		&nbsp;
-			<div class="row col-md-12">
-				<div ng-repeat="category in categories" class="col-md-3">
-					<h6 style="text-bold">{{category.title}}</h6>
-					<dt class="col-md-12">
-						<dd class="col-md-12 col-md-offset-1" ng-repeat="subCategory in category.subCategories">
-							<a href="#/at/{{category.title}}/{{subCategory.title}}/{{subCategory.queryString}}">
-									{{subCategory.title}}
-							</a>
-						</dd>
-					</dt>
-				</div>
-			</div>
-		</div>
-	</div>
 </div>

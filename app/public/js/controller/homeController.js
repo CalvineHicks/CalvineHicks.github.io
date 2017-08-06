@@ -1,4 +1,4 @@
-app.controller('SearchController', function SearchController($scope, $http) {
+app.controller('HomeController', function HomeController($scope, $http) {
       $scope.submitted = false;
   $scope.reasonForSearchData = {
     availableOptions: [
@@ -45,6 +45,6 @@ app.controller('SearchController', function SearchController($scope, $http) {
   });
 
   $scope.searchRedirect = function(){
-    window.location.href = "#/at/"+$scope.reasonForSearchData.selectedOption.name+"/"+$scope.areaOfNeedData.availableOptions.selected.name+"/"+$scope.typeOfAtDeviceData.availableOptions.selected.name+"/"+$scope.zipCode+"/"+$scope.queryString;
+    window.location.href = "#/at/"+$scope.reasonForSearchData.selectedOption.name+"/"+$scope.areaOfNeedData.selectedOption.name+"/"+$scope.typeOfAtDeviceData.selectedOption.name+"/"+$scope.zipCode+"/"+$scope.queryString;
   };   
 });

@@ -7,10 +7,9 @@
 	<script src="js/angularModuleMain.js"></script>
 	<script src="lib/tether-1.4.0/dist/js/tether.min.js"></script>
 	<script src="lib/bootstrap-4.0.0-alpha.6/js/bootstrap.js"></script>
-	<script src="js/controller/searchController.js"></script>
+	<script src="js/controller/homeController.js"></script>
 	<script src="js/controller/guidedSearchController.js"></script>
 	<script src="js/controller/navController.js"></script>
-	<script src="js/navbar.js"></script>
 	<script src="js/cookieService.js"></script>
 	<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.6/css/bootstrap-grid.min.css">
@@ -30,9 +29,6 @@
 			  	<li id="Home" class="nav-item">
 					<a href="#/" class="nav-link text-center">Home</a>
 				</li>
-				<li id="Assistive Technologies" class="nav-item">
-					<a href="" data-toggle="collapse" data-target="#navbarToggleATList" class="nav-link text-center">Search By Category</a>
-				</li>
 			  	<li id="FAQs" class="nav-item">
 					<a href="#/AboutUs" class="nav-link text-center">About</a>
 				</li>
@@ -50,21 +46,6 @@
 			</a>
 		</div>
 	</nav>
-	<div class="collapse" id="navbarToggleATList" ng-controller="NavController">
-		&nbsp;
-		<div class="row col-md-12 justify-content-center">
-			<div ng-repeat="category in categories" class="col-md-3">
-				<h6 style="text-bold">{{category.title}}</h6>
-				<dt class="col-md-12">
-					<dd class="col-md-12 col-md-offset-1" ng-repeat="subCategory in category.subCategories">
-						<a data-toggle="collapse" data-target="#navbarToggleATList" href="#/at/{{category.title}}/{{subCategory.title}}/{{subCategory.queryString}}">
-							{{subCategory.title}}
-						</a>
-					</dd>
-				</dt>
-			</div>
-		</div>
-	</div>
     <div ng-view id="ng-view" class="content-background"></div>
     <div id="footer">		
             <hr class="margin-top-s margin-bottom-s">

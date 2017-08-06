@@ -65,34 +65,45 @@ app.post('/logUserSearch', function(req, res) {
     }
 
     today = mm+'/'+dd+'/'+yyyy;
-
+    
+    //get any existing entry with this IP
     db.collection('usersearches').findOne({'ipAddress' : ip}, (err, result) => {
 
-    console.log(result);
+            var visit = {};
+            var visits;
+        //if no result then this is the first time this IP has clicked a link
+        //create a new user object for them
         if(!result){
             //set up new user obj
             var user = {};
-            var visits = [];
-            var visit = {};
+            visits = [];
             user['ipAddress'] = req.body['ipAddress'];
             user['ipCity'] = req.body['ipCity'];
             user['ipCountry'] = req.body['ipCountry'];
             user['ipState'] = req.body['ipState'];
             user['visits'] = visits;
         }
+        //if we get a result then this user has clicked a link before
+        //add this cilck to the list of visits
         else{
             var user = result;
-            var visits = user['visits'];
-            var visit = {};
+            visits = user['visits'];
         }
-
+        
+        //create a new visit object to store this visits information
+        //user entered zip may vary from their IP so log it separately
         visit['reasonForSearch'] = req.body['reasonForSearch'];
+        visit['areaOfNeed'] = req.body['areaOfNeed'];
+        visit['typeOfATDevice'] = req.body['typeOfATDevice'];
+        visit['userZip'] = req.body['userZip'];
+        visit['userCity'] = req.body['userCity'];
+        visit['userState'] = req.body['userState'];
         
         visit['clickedLink'] = req.body['clickedLink'];
         visit['date'] = today;
         visits.push(visit);
-
-        console.log(user);
+        
+        //store in mongo
         db.collection('usersearches').save(user, (err, result) => {
             if (err) return console.log(err);
           });
@@ -101,8 +112,8 @@ app.post('/logUserSearch', function(req, res) {
 });
 
 app.get('/getUserSearchReport', function(req, res) {
-    var fields = ['ipAddress', 'city', 'state', 'country', 'date', 'clickedLink'];
-    var fieldNames = ['IP Address', 'City', 'State', 'Country', 'Date of Visit', 'Clicked Link'];
+    var fields = ['ipAddress', 'ipCity', 'ipState', 'ipCountry', 'userZip', 'userCity', 'userState', 'date', 'clickedLink','reasonForSearch','areaOfNeed','typeOfATDevice'];
+    var fieldNames = ['IP Address', 'IP Addr. City', 'IP Addr. State', 'IP Addr. Country', 'User Entered Zip Code', 'User Entered City', 'User Entered State', 'Date of Visit', 'Clicked Link', 'Reason For Search', 'Area Of Need', 'Type Of AT Device'];
 
     db.collection('usersearches').find().toArray(function(err, docs) {
         var results = [];
@@ -111,17 +122,22 @@ app.get('/getUserSearchReport', function(req, res) {
             for(var j in visits){
                 var result = {};
                 result['ipAddress'] = docs[i]['ipAddress'];
-                result['city'] = docs[i]['city'];
-                result['state'] = docs[i]['state'];
-                result['country'] = docs[i]['country'];
+                result['ipCity'] = docs[i]['ipCity'];
+                result['ipState'] = docs[i]['ipState'];
+                result['ipCountry'] = docs[i]['ipCountry'];
+                result['userZip'] = visits[j]['userZip'];
+                result['userCity'] = visits[j]['userCity'];
+                result['userState'] = visits[j]['userState'];
                 result['date'] = visits[j]['date'];
                 result['clickedLink'] = visits[j]['clickedLink'];
-                result['clickedLink'] = visits[j]['clickedLink'];
+                result['reasonForSearch'] = visits[j]['reasonForSearch'];
+                result['areaOfNeed'] = visits[j]['areaOfNeed'];
+                result['typeOfATDevice'] = visits[j]['typeOfATDevice'];
                 results.push(result);
             }
         }
         var data = json2csv({ data: results, fields: fields, fieldNames: fieldNames });
-        res.attachment('filename.csv');
+        res.attachment('ATFinderUserReport.csv');
         res.set('Content-Type', 'application/octet-stream');
         res.status(200).send(data);
     });

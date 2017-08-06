@@ -1,104 +1,108 @@
 app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', function GuidedSearchController($scope, $http, $routeParams) {
-        $scope.queryString = $routeParams.queryString;
-        $scope.category = $routeParams.category;
-        $scope.subCategory = $routeParams.subCategory;
-        $scope.zipCode = $routeParams.zipCode;
         $scope.city = '';
         $scope.state = '';
         $scope.results = [];
-        $scope.resultNumber = $scope.results.length;
         $scope.walmartResults = [];
         $scope.craigslistResults = [];
         $scope.ebayResults = [];
-        $scope.maxPrice = 10;
+    
+        //TODO : fix max price so that it is unbounded to start
+        $scope.maxPrice = 1000;
         $scope.minPrice = 0;   
-        $scope.guidedSearch = function(){
-        $scope.loadingResults=true;
-        $scope.loadingResultsProgress=20;
-        $scope.ebayResults = [];
-        $scope.walmartResults = [];
-        $scope.craigslistResults = [];
-        $scope.results = [];
-        $scope.results.length = 0;
-
-        $scope.sortType     = 'price'; // set the default sort type
-        $scope.sortReverse  = false;  // set the default sort order
-        $scope.sortSelected = 'price:false';
-
-        $scope.sortSelect = function(){
-            var args = $scope.sortSelected.split(':');
-            $scope.sortType     = args[0];
-            $scope.sortReverse  = (args[1] == 'true');
-        };
-
-        $http({
-          method: 'GET',
-          headers: {
-            'Content-Type' : 'text/html'
-          },
-          url: 'http://localhost:8080/ebay/?queryString='+$scope.queryString
-        }).then(function successCallback(response) {
-            $scope.ebayResults = response['data'];
-            for(var i in $scope.ebayResults){
-                $scope.ebayResults[i]['site'] = 'Ebay';
-            }
-            $scope.results = $scope.results.concat($scope.ebayResults);
-          }, function errorCallback(response) {
-            console.log('error');
-            console.log(response);
-          });
-
-        if($scope.city == true){
-            $scope.craigslistSearch();
+        $scope.reasonForSearch = $routeParams.reasonForSearch;
+        $scope.areaOfNeed = $routeParams.areaOfNeed;
+        $scope.typeOfATDevice = $routeParams.typeOfATDevice;
+        $scope.zipCode = $routeParams.zipCode;
+        $scope.queryString = $routeParams.queryString;
+    
+        if(!isEmptyOrSpaces($scope.zipCode)){
+            $scope.zipCodeToCity;
         }
 
-          for(var pageNum=1; pageNum<=5; pageNum++){
+        $scope.guidedSearch = function(){
+          if(!isEmptyOrSpaces($scope.reasonForSearch)) {
+            $scope.loadingResults=true;
+            $scope.loadingResultsProgress=20;
+            $scope.results.length = 0;
+            $scope.sortType     = 'price'; // set the default sort type
+            $scope.sortReverse  = false;  // set the default sort order
+            $scope.sortSelected = 'price:false';
+
+            $scope.sortSelect = function(){
+                var args = $scope.sortSelected.split(':');
+                $scope.sortType     = args[0];
+                $scope.sortReverse  = (args[1] == 'true');
+            };
+
+
+            //SEARCH EBAY
             $http({
-                method: 'GET',
-                headers: {
-                  'Content-Type' : 'text/html'
-                },
-                url: 'http://'+window.location.host+'/walmart/?pageNum='+pageNum+'&queryString='+$scope.queryString
-                }).then(function successCallback(response) {
-                  $scope.walmartResults = response['data'];
-                  for(var i in $scope.walmartResults){
-                      $scope.walmartResults[i]['site'] = 'Walmart';
-                  }
-                  $scope.results = $scope.results.concat($scope.walmartResults);
-                }, function errorCallback(response) {
-                  console.log('error');
-                  console.log(response);
-                });
+              method: 'GET',
+              headers: {
+                'Content-Type' : 'text/html'
+              },
+              url: 'http://localhost:8080/ebay/?queryString='+$scope.queryString
+            }).then(function successCallback(response) {
+                $scope.ebayResults = response['data'];
+                for(var i in $scope.ebayResults){
+                    $scope.ebayResults[i]['site'] = 'Ebay';
+                }
+                $scope.results = $scope.results.concat($scope.ebayResults);
+              }, function errorCallback(response) {
+                console.log('error');
+                console.log(response);
+              });
+
+            //SEARCH CRAIGSLIST
+            //City is required to do a search of craigslist
+            if(!isEmptyOrSpaces($scope.city)){
+                $scope.craigslistResults = [];
+
+                    $http({
+                        method: 'GET',
+                        headers: {
+                          'Content-Type' : 'text/html'
+                        },
+                        url: 'http://'+window.location.host+'/craigslist/?city='+$scope.city+'&queryString='+$scope.queryString
+                    }).then(function successCallback(response) {
+                      $scope.craigslistResults = response['data'];
+                      for(var i in $scope.craigslistResults){
+                          $scope.craigslistResults[i]['site'] = 'Craigslist';
+                      }
+                      $scope.results = $scope.results.concat($scope.craigslistResults);
+                        console.log('searched craigslist');
+                    }, function errorCallback(response) {
+                      console.log('error');
+                      console.log(response);
+                    });
             }
+            
+            //WALMART SEARCH
+            //Iterate pages of walmart search since api is auto paginated
+            for(var pageNum=1; pageNum<=5; pageNum++){
+                    $http({
+                        method: 'GET',
+                        headers: {
+                          'Content-Type' : 'text/html'
+                        },
+                        url: 'http://'+window.location.host+'/walmart/?pageNum='+pageNum+'&queryString='+$scope.queryString
+                    }).then(function successCallback(response) {
+                        $scope.walmartResults = response['data'];
+                        for(var i in $scope.walmartResults){
+                          $scope.walmartResults[i]['site'] = 'Walmart';
+                        }
+                        $scope.results = $scope.results.concat($scope.walmartResults);
+                    }, function errorCallback(response) {
+                        console.log('error');
+                        console.log(response);
+                    });
+            }
+            $scope.loadingResults=false;
+          }
+        };
 
-        $scope.loadingResults=false;
-      };
+        
 
-       $scope.craigslistSearch = function(){
-              $scope.craigslistResults = [];
-
-              $http({
-                method: 'GET',
-                headers: {
-                  'Content-Type' : 'text/html'
-                },
-                url: 'http://'+window.location.host+'/craigslist/?city='+$scope.city+'&queryString='+$scope.queryString
-                }).then(function successCallback(response) {
-                  $scope.craigslistResults = response['data'];
-                  for(var i in $scope.craigslistResults){
-                      $scope.craigslistResults[i]['site'] = 'Craigslist';
-                  }
-                  $scope.results = $scope.results.concat($scope.craigslistResults);
-                  console.log('craigslist search');
-                }, function errorCallback(response) {
-                  console.log('error');
-                  console.log(response);
-                });
-
-       }
-
-
-        $scope.guidedSearch();
         $scope.includeCraigslist = true;
         $scope.includeEbay = true;
         $scope.includeWalmart = true;
@@ -147,10 +151,11 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
             if(response['data']['state']){
                 $scope.state = response['data']['state'];
             }
-            $scope.craigslistSearch();
+            $scope.guidedSearch();
           }, function errorCallback(response) {
             console.log('error');
             console.log(response);
+            $scope.guidedSearch();
           });
   }, 500, false);
   $scope.openResult = function(url){
@@ -170,11 +175,14 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         userStats['ipState'] = data['region'];
         userStats['ipCountry'] = data['countryCode'];
         userStats['ipAddress'] = data['query'];
+        userStats['userZip'] = $scope.zipCode;
         userStats['userCity'] = $scope.city;
         userStats['userState'] = $scope.state;
         
         //user entered questionairre
-        userStats['reasonForSearch'] = $scope.reasonForSearchData.selectedOption;
+        userStats['reasonForSearch'] = $scope.reasonForSearch;
+        userStats['areaOfNeed'] = $scope.areaOfNeed;
+        userStats['typeOfATDevice'] = $scope.typeOfATDevice;
 
           $http({
                 method: 'POST',
@@ -203,3 +211,7 @@ function debounce(func, wait, immediate) {
         if (callNow) func.apply(context, args);
     };
 };
+
+function isEmptyOrSpaces(str){
+    return angular.isUndefined(str) || str === null || str.match(/^ *$/) !== null;
+}

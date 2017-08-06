@@ -6,20 +6,16 @@
                 <input ng-model="queryString" type="text" class="form-control" id="search" placeholder="Search"></input>
             </div>
             <div class="form-group col-md-1 align-items-end alignItemCenter">
-                 <a type="button" class="btn btn-primary glyphicon glyphicon-search" style="" href="#/at/{{zipCode}}/{{queryString}}">
+                 <button type="button" class="btn btn-primary glyphicon glyphicon-search" ng-model="queryString" ng-click="guidedSearch()">
                         <strong>Search</strong>
-                 </a>
+                 </button>
             </div>
 
         </div>
         <div class="row col-md-12">
             <div class= "col-md-8">
-                <h4 ng-show="category">
-                    {{results.length}} results found in {{category}}
-                    <small class="text-muted">{{subCategory}}</small>
-                </h4>
                 <h4 ng-hide="category">
-                    {{results.length}} results found for {{queryString}}
+                    {{results.length}} Total Results Found for {{queryString}}
                 </h4>
            </div>
             <div class="col-md-4 d-flex justify-content-end">
@@ -59,44 +55,44 @@
                     <div id="includeResultCheckboxes">
                         <div class="form-check col-md-12">
                             <label class="form-check-label">
-                                <input type="checkbox" ng-disabled="results.length == 0 && (includeEbay || includeWalmart)" ng-change="toggleResults()" ng-model="includeCraigslist" class="form-check-input">
+                                <input type="checkbox" ng-change="toggleResults()" ng-model="includeCraigslist" class="form-check-input">
                                 Craigslist ({{craigslistResults.length}})
                             </label>
                         </div>
                         <div class="form-check col-md-12">
                             <label class="form-check-label">
-                                <input type="checkbox" ng-disabled="results.length == 0 && (includeCraigslist || includeWalmart)" ng-change="toggleResults()" ng-model="includeEbay" class="form-check-input">
+                                <input type="checkbox" ng-change="toggleResults()" ng-model="includeEbay" class="form-check-input">
                                 Ebay ({{ebayResults.length}})
                             </label>
                         </div>
                         <div class="form-check col-md-12">
                             <label class="form-check-label">
-                                <input type="checkbox" ng-disabled="results.length == 0 && (includeEbay || includeCraigslist)" ng-change="toggleResults()" ng-model="includeWalmart" class="form-check-input">
+                                <input type="checkbox" ng-change="toggleResults()" ng-model="includeWalmart" class="form-check-input">
                                 Walmart ({{walmartResults.length}})
                             </label>
                         </div>
                     </div>
-                    <div class="form-group col-md-12">
+                   <!-- <div class="form-group col-md-12">
                         <label for="minPrice"><strong>Minimum Price</strong></label>
                         <input type="text" placeholder="" class="form-control col-md-6" id="minPrice" ng-model="minPrice"/>
                     </div>
                     <div class="form-group col-md-12">
                         <label for="maxPrice"><strong>Maximum Price</strong></label>
                         <input type="text" placeholder="" class="form-control col-md-6" id="maxPrice" ng-model="maxPrice"/>
-                    </div>
+                    </div>-->
                 </form>
             </div>
         </div>
     </div>
     <div class="row col-md-10">
-        <div ng-show="results.length == 0" class="row col-md-12">
+        <div ng-show="filtered.length == 0" class="row col-md-12">
             <div class="alert alert-warning col-md-12" role="alert">
                 <strong>Warning!</strong> No results found, try refining your filters.
             </div>
         </div>
-        <div ng-hide="results.length == 0" class="row col-md-12">
+        <div ng-hide="filtered.length == 0" class="row col-md-12">
             <!-- results grid -->
-            <div class="card col-md-12" ng-repeat="result in results | orderBy:sortType:sortReverse | filter: lessThan('price', maxPrice) | filter: greaterThan('price', minPrice)">
+            <div class="card col-md-12" ng-repeat="result in filtered = (results | orderBy:sortType:sortReverse | filter: lessThan('price', maxPrice) | filter: greaterThan('price', minPrice))">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-md-3">
                         <div class="card-img-bottom" style="height:200px;">
