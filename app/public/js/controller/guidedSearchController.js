@@ -17,6 +17,9 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         $scope.sortType     = 'price'; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
         $scope.sortSelected = 'price:false';
+        $scope.includeCraigslist = true;
+        $scope.includeEbay = true;
+        $scope.includeWalmart = true;
     
         if(!isEmptyOrSpaces($scope.zipCode)){
             $scope.zipCodeToCity;
@@ -47,7 +50,9 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
                 for(var i in $scope.ebayResults){
                     $scope.ebayResults[i]['site'] = 'Ebay';
                 }
+              if($scope.includeEbay){
                 $scope.results = $scope.results.concat($scope.ebayResults);
+                }
               }, function errorCallback(response) {
                 console.log('error');
                 console.log(response);
@@ -69,7 +74,9 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
                       for(var i in $scope.craigslistResults){
                           $scope.craigslistResults[i]['site'] = 'Craigslist';
                       }
+                    if($scope.includeCraigslist){
                       $scope.results = $scope.results.concat($scope.craigslistResults);
+                    }
                         console.log('searched craigslist');
                     }, function errorCallback(response) {
                       console.log('error');
@@ -91,7 +98,9 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
                         for(var i in $scope.walmartResults){
                           $scope.walmartResults[i]['site'] = 'Walmart';
                         }
+                      if($scope.includeWalmart){
                         $scope.results = $scope.results.concat($scope.walmartResults);
+                      }
                     }, function errorCallback(response) {
                         console.log('error');
                         console.log(response);
@@ -100,12 +109,6 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
             $scope.loadingResults=false;
           }
         };
-
-        
-
-        $scope.includeCraigslist = true;
-        $scope.includeEbay = true;
-        $scope.includeWalmart = true;
 
         $scope.toggleResults = function(){
             $scope.results = [];
