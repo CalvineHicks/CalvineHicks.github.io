@@ -14,6 +14,9 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         $scope.typeOfATDevice = $routeParams.typeOfATDevice;
         $scope.zipCode = $routeParams.zipCode;
         $scope.queryString = $routeParams.queryString;
+        $scope.sortType     = 'price'; // set the default sort type
+        $scope.sortReverse  = false;  // set the default sort order
+        $scope.sortSelected = 'price:false';
     
         if(!isEmptyOrSpaces($scope.zipCode)){
             $scope.zipCodeToCity;
@@ -24,9 +27,6 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
             $scope.loadingResults=true;
             $scope.loadingResultsProgress=20;
             $scope.results.length = 0;
-            $scope.sortType     = 'price'; // set the default sort type
-            $scope.sortReverse  = false;  // set the default sort order
-            $scope.sortSelected = 'price:false';
 
             $scope.sortSelect = function(){
                 var args = $scope.sortSelected.split(':');
