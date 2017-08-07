@@ -14,6 +14,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         $scope.typeOfATDevice = $routeParams.typeOfATDevice;
         $scope.zipCode = $routeParams.zipCode;
         $scope.queryString = $routeParams.queryString;
+        $scope.searchedString = $routeParams.queryString;
         $scope.sortType     = 'price'; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
         $scope.sortSelected = 'price:false';
@@ -31,6 +32,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
             $scope.loadingResultsProgress=20;
             $scope.results.length = 0;
             $scope.results = [];
+            $scope.searchedString = $scope.queryString;
 
             $scope.sortSelect = function(){
                 var args = $scope.sortSelected.split(':');

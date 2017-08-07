@@ -2,12 +2,24 @@ var app = angular.module("myApp", ["ngRoute"]);
 app.config(function($routeProvider,$locationProvider) {
     $routeProvider.when("/", {
         templateUrl : "views/home.html",
-        controller: 'HomeController'
+        controller: 'SearchController'
     })
+    .when("/at/:category/:subCategory/:queryString", {
+            templateUrl : "views/atGuidedSearch.html",
+            controller: 'GuidedSearchController'
+        })
+    .when("/at/:zipCode/:queryString", {
+            templateUrl : "views/atGuidedSearch.html",
+            controller: 'GuidedSearchController'
+        })
     .when("/at/:reasonForSearch/:areaOfNeed/:typeOfATDevice/:zipCode/:queryString", {
             templateUrl : "views/atGuidedSearch.html",
             controller: 'GuidedSearchController'
         })
+    .when("/Search", {
+        templateUrl : "views/search.html",
+        controller: 'SearchController'
+    })
     .when("/AboutUs", {
         templateUrl : "views/aboutUs.html"
     })
