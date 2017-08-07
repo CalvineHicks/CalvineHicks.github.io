@@ -30,6 +30,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
             $scope.loadingResults=true;
             $scope.loadingResultsProgress=20;
             $scope.results.length = 0;
+            $scope.results = [];
 
             $scope.sortSelect = function(){
                 var args = $scope.sortSelected.split(':');
@@ -39,6 +40,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
 
 
             //SEARCH EBAY
+            $scope.ebayResults = [];
             $http({
               method: 'GET',
               headers: {
@@ -86,6 +88,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
             
             //WALMART SEARCH
             //Iterate pages of walmart search since api is auto paginated
+            $scope.walmartResults = [];
             for(var pageNum=1; pageNum<=5; pageNum++){
                     $http({
                         method: 'GET',
