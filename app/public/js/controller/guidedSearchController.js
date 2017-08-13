@@ -26,6 +26,12 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
             $scope.zipCodeToCity;
         }
 
+        $scope.sortSelect = function(){
+            var args = $scope.sortSelected.split(':');
+            $scope.sortType     = args[0];
+            $scope.sortReverse  = (args[1] == 'true');
+        };
+
         $scope.guidedSearch = function(){
           if(!isEmptyOrSpaces($scope.reasonForSearch)) {
             $scope.loadingResults=true;
@@ -33,12 +39,6 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
             $scope.results.length = 0;
             $scope.results = [];
             $scope.searchedString = $scope.queryString;
-
-            $scope.sortSelect = function(){
-                var args = $scope.sortSelected.split(':');
-                $scope.sortType     = args[0];
-                $scope.sortReverse  = (args[1] == 'true');
-            };
 
 
             //SEARCH EBAY
@@ -81,7 +81,6 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
                     if($scope.includeCraigslist){
                       $scope.results = $scope.results.concat($scope.craigslistResults);
                     }
-                        console.log('searched craigslist');
                     }, function errorCallback(response) {
                       console.log('error');
                       console.log(response);
