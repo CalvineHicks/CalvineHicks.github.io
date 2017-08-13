@@ -2,7 +2,7 @@ var app = angular.module("myApp", ["ngRoute"]);
 app.config(function($routeProvider,$locationProvider) {
     $routeProvider.when("/", {
         templateUrl : "views/home.html",
-        controller: 'SearchController'
+        controller: 'HomeController'
     })
     .when("/at/:category/:subCategory/:queryString", {
             templateUrl : "views/atGuidedSearch.html",
