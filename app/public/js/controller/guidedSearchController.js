@@ -8,7 +8,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         $scope.ebayResults = [];
     
         //TODO : fix max price so that it is unbounded to start
-        $scope.maxPrice = 1000;
+        $scope.maxPrice = '';
         $scope.minPrice = 0;   
         $scope.reasonForSearch = $routeParams.reasonForSearch;
         $scope.areaOfNeed = $routeParams.areaOfNeed;
@@ -136,13 +136,13 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
 
         $scope.greaterThan = function(prop, val){
             return function(item){
-              return (item[prop] == null || isNaN(item[prop]) || item[prop] > val);
+              return (item[prop] == null || isNaN(item[prop]) || val === "" || item[prop] > val);
             }
         }
 
         $scope.lessThan = function(prop, val){
             return function(item){
-              return (item[prop] == null || isNaN(item[prop]) || item[prop] < val);
+              return (item[prop] == null || isNaN(item[prop]) || val === "" || item[prop] < val);
             }
         }
 
