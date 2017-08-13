@@ -73,12 +73,18 @@
                         </div>
                     </div>
                    <div class="form-group col-md-12">
-                        <label for="minPrice"><strong>Minimum Price</strong></label>
-                        <input type="text" placeholder="" class="form-control col-md-6" id="minPrice" ng-model="minPrice"/>
+                       <label for="minPrice"><strong>Minimum Price</strong></label>
+                       <div class="input-group col-md-8 pl-0">
+                           <div class="input-group-addon">$</div>
+                           <input type="text" placeholder="" class="form-control" id="minPrice" ng-model="minPrice"/>
+                       </div>
                     </div>
                     <div class="form-group col-md-12">
                         <label for="maxPrice"><strong>Maximum Price</strong></label>
-                        <input type="text" placeholder="" class="form-control col-md-6" id="maxPrice" ng-model="maxPrice"/>
+                        <div class="input-group col-md-8 pl-0">
+                            <div class="input-group-addon">$</div>
+                            <input type="text" placeholder="" class="form-control" id="maxPrice" ng-model="maxPrice"/>
+                        </div>
                     </div>
                 </form>
             </div>

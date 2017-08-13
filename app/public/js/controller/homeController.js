@@ -11,24 +11,24 @@ app.controller('HomeController', function HomeController($scope, $http) {
     
   $scope.areaOfNeedData = {
     availableOptions: [
-      {id: '2', name: 'Education'},
-      {id: '3', name: 'Employment'},
-      {id: '4', name: 'Everyday Living'}
+      {id: '1', name: 'Education'},
+      {id: '2', name: 'Employment'},
+      {id: '3', name: 'Everyday Living'}
     ]
     };
   
   $scope.typeOfAtDeviceData = {
     availableOptions: [
-      {id: '2', name: 'Computers and Related'},
-      {id: '3', name: 'Daily Living'},
-      {id: '4', name: 'Environmental Adaptations'},
-      {id: '5', name: 'Hearing'},
-      {id: '6', name: 'Learning, Cognition and Developmental'},
-      {id: '7', name: 'Mobility, Seating and Positioning'},
-      {id: '8', name: 'Recreation, Sports and Leisure'},
-      {id: '9', name: 'Speach Communications'},
-      {id: '10', name: 'Vehicle Modifications and Transportation'},
-      {id: '11', name: 'Vision'}
+      {id: '1', name: 'Computers and Related'},
+      {id: '2', name: 'Daily Living'},
+      {id: '3', name: 'Environmental Adaptations'},
+      {id: '4', name: 'Hearing'},
+      {id: '5', name: 'Learning, Cognition and Developmental'},
+      {id: '6', name: 'Mobility, Seating and Positioning'},
+      {id: '7', name: 'Recreation, Sports and Leisure'},
+      {id: '8', name: 'Speach Communications'},
+      {id: '9', name: 'Vehicle Modifications and Transportation'},
+      {id: '10', name: 'Vision'}
     ]
     };
 
@@ -45,6 +45,6 @@ app.controller('HomeController', function HomeController($scope, $http) {
   });
 
   $scope.searchRedirect = function(){
-    window.location.href = "#/at/"+$scope.reasonForSearchData.selectedOption.name+"/"+$scope.areaOfNeedData.selectedOption.name+"/"+$scope.typeOfAtDeviceData.selectedOption.name+"/"+$scope.zipCode+"/"+$scope.queryString;
+    window.location.href = encodeURI("#/at/"+$scope.reasonForSearchData.selectedOption.name+"/"+$scope.areaOfNeedData.selectedOption.name+"/"+$scope.typeOfAtDeviceData.selectedOption.name+"/"+$scope.zipCode+"/"+$scope.queryString);
   };   
 });
