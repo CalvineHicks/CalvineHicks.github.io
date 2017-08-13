@@ -35,7 +35,7 @@
 				<div class="form-group col-md-7">
 					<label for="search"><strong>Search</strong></label>
 			  		<span style="color:red">*</span>
-		  			<input ng-model="queryString" ng-required="true" type="text" class="form-control" id="search" name="search" placeholder="Search" aria-required="true"></input>
+		  			<input ng-model="queryString" my-enter="searchForm.$valid && searchRedirect()" ng-required="true" type="text" class="form-control" id="search" name="search" placeholder="Search" aria-required="true"></input>
 				</div>
 				<div class="alignItemCenter">
 					<span class="large-text pt-3">near</span>
