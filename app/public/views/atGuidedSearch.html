@@ -102,7 +102,8 @@
                 <div class="row align-items-center justify-content-center">
                     <div class="col-md-3">
                         <div class="card-img-bottom" style="height:200px;">
-                            <img class="img-thumbnail img-fluid my-2 mr-2 test" ng-src="{{result.thumbnail || result.imageLink}}" alt="" style="max-width:100%; max-height:90%;">
+                            <img ng-show="result.thumbnail || result.imageLink" class="img-thumbnail img-fluid my-2 mr-2 test" ng-src="{{result.thumbnail || result.imageLink}}" alt="" style="max-width:100%; max-height:90%;">
+                            <img ng-hide="result.thumbnail || result.imageLink" class="img-thumbnail img-fluid my-2 mr-2 test" ng-src="http://thumbs1.ebaystatic.com/pict/04040_0.jpg" alt="" style="max-width:100%; max-height:90%;">
                         </div>
                     </div>
                     <div class="col-md-9 row">
