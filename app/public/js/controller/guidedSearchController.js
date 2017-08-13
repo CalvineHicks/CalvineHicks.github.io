@@ -3,6 +3,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         $scope.state = '';
         $scope.results = [];
         $scope.walmartResults = [];
+        $scope.walmartTotalResults = [];
         $scope.craigslistResults = [];
         $scope.ebayResults = [];
     
@@ -90,6 +91,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
             //WALMART SEARCH
             //Iterate pages of walmart search since api is auto paginated
             $scope.walmartResults = [];
+            $scope.walmartTotalResults = [];
             for(var pageNum=1; pageNum<=5; pageNum++){
                     $http({
                         method: 'GET',
@@ -99,6 +101,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
                         url: 'http://'+window.location.host+'/walmart/?pageNum='+pageNum+'&queryString='+$scope.queryString
                     }).then(function successCallback(response) {
                         $scope.walmartResults = response['data'];
+                        $scope.walmartTotalResults = $scope.walmartTotalResults.concat(response['data']);
                         for(var i in $scope.walmartResults){
                           $scope.walmartResults[i]['site'] = 'Walmart';
                         }
