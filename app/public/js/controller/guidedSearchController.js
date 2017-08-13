@@ -2,6 +2,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         $scope.city = '';
         $scope.state = '';
         $scope.results = [];
+        $scope.totalResults = 0;
         $scope.walmartResults = [];
         $scope.walmartTotalResults = [];
         $scope.craigslistResults = [];
@@ -38,6 +39,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
             $scope.loadingResults=true;
             $scope.loadingResultsProgress=20;
             $scope.results.length = 0;
+            $scope.totalResults = 0;
             $scope.results = [];
             $scope.searchedString = $scope.queryString;
 
@@ -57,6 +59,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
                 }
               if($scope.includeEbay){
                 $scope.results = $scope.results.concat($scope.ebayResults);
+                $scope.totalResults += $scope.ebayResults.length;
                 }
               }, function errorCallback(response) {
                 console.log('error');
@@ -81,6 +84,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
                       }
                     if($scope.includeCraigslist){
                       $scope.results = $scope.results.concat($scope.craigslistResults);
+                      $scope.totalResults += $scope.craigslistResults.length;
                     }
                     }, function errorCallback(response) {
                       console.log('error');
@@ -107,6 +111,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
                         }
                       if($scope.includeWalmart){
                         $scope.results = $scope.results.concat($scope.walmartResults);
+                        $scope.totalResults += $scope.walmartResults.length;
                       }
                     }, function errorCallback(response) {
                         console.log('error');
