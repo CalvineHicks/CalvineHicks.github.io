@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ["ngRoute"]);
+var app = angular.module("myApp", ['ngRoute', 'ngCookies']);
 app.config(function($routeProvider,$locationProvider) {
     $routeProvider.when("/", {
         templateUrl : "views/home.html",
@@ -37,6 +37,64 @@ app.controller('scrollLinks', function($scope, $location, $anchorScroll) {
       $location.hash(id);
       $anchorScroll();
    }
+});
+
+//This factory allows us to persist the same fields accross controllers
+app.factory('UserInformation', function($cookies){
+
+    this.data = {
+                   reasonForSearchData : "",
+                   areaOfNeedData : "",
+                   typeOfAtDeviceData : "",
+                   queryString : "",
+                   zipCode : ""
+               }
+
+    if($cookies.get('reasonForSearchData')){
+        this.data.reasonForSearchData = $cookies.get('reasonForSearchData');
+    }
+    if($cookies.get('areaOfNeedData')){
+        this.data.areaOfNeedData = $cookies.get('areaOfNeedData');
+    }
+    if($cookies.get('typeOfAtDeviceData')){
+        this.data.typeOfAtDeviceData = $cookies.get('typeOfAtDeviceData');
+    }
+    if($cookies.get('zipCode')){
+        this.data.zipCode = $cookies.get('zipCode');
+    }
+
+    return {
+        //use the data obj to access the current state of the fields
+        data : this.data,
+        //use setters to set fields within a controller, also saves to cookies
+        setReasonForSearchData(val){
+            this.data.reasonForSearchData = val;
+            $cookies.put('reasonForSearchData', val);
+        },
+        setAreaOfNeedData(val){
+            this.data.areaOfNeedData = val;
+            $cookies.put('areaOfNeedData', val);
+        },
+        setTypeOfAtDeviceData(val){
+            this.data.typeOfAtDeviceData = val;
+            $cookies.put('typeOfAtDeviceData', val);
+        },
+        setQueryString(val){
+            this.data.queryString = val;
+        },
+        setZipCode(val){
+            this.data.zipCode = val;
+            $cookies.put('zipCode', val);
+        },
+        //is valid will check that all the fields have a value
+        isValid : function(){
+            if
+                (this.data.reasonForSearchData && this.data.areaOfNeedData && this.data.typeOfAtDeviceData && this.data.queryString && this.data.zipCode){
+                    return true
+                    }
+            return false
+        }
+    };
 });
 
 /*

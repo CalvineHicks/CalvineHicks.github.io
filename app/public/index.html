@@ -1,20 +1,20 @@
 <html>
 
 <header>	
-	<script src="js/jquery-3.1.1.min.js"></script>
-	<script src="js/angular.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+	<script src="lib/jquery/jquery-3.1.1.min.js"></script>
+	<script src="lib/angular/angular.min.js"></script>
+	<script src="lib/angular/angular-cookies.min.js"></script>
+	<script src="lib/angular/angular-route.min.js"></script>
+	<script src="lib/tether/js/tether.min.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
 	<script src="js/angularModuleMain.js"></script>
-	<script src="lib/tether-1.4.0/dist/js/tether.min.js"></script>
-	<script src="lib/bootstrap-4.0.0-alpha.6/js/bootstrap.js"></script>
 	<script src="js/controller/homeController.js"></script>
 	<script src="js/controller/guidedSearchController.js"></script>
 	<script src="js/controller/navController.js"></script>
-	<script src="js/cookieService.js"></script>
-	<link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.6/css/bootstrap.min.css">
-    <link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.6/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.6/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="lib/bootstrap-4.0.0-alpha.6/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/pagestyles.css">
 	<meta charset="UTF-8">
 </header>
@@ -24,10 +24,13 @@
 		<div class="col-md-2 align-self-start">
 			<a id="logo" class="navbar-brand extra-large-text" href="#/">AT Finder</a>
 		</div>
-		<div class="col-md-7 align-self-start">
+		<div class="col-md-7 align-self-start" ng-controller = "NavController">
 			<ul bs-active-link class="nav navbar-nav">
 			  	<li id="Home" class="nav-item">
 					<a href="#/" class="nav-link text-center large-text">Home</a>
+				</li>
+				<li id="Search" class="nav-item" ng-click="userInformationValid() && searchRedirect()">
+					<a href class="nav-link text-center large-text">Search</a>
 				</li>
 			  	<li id="FAQs" class="nav-item">
 					<a href="#/AboutUs" class="nav-link text-center large-text">About</a>
