@@ -12,14 +12,15 @@ app.config(function($routeProvider,$locationProvider) {
             templateUrl : "views/atGuidedSearch.html",
             controller: 'GuidedSearchController'
         })
+
+    .when("/at/:reasonForSearch/:areaOfNeed/:typeOfATDevice/:zipCode/", {
+            templateUrl : "views/atGuidedSearch.html",
+            controller: 'GuidedSearchController'
+        })
     .when("/at/:reasonForSearch/:areaOfNeed/:typeOfATDevice/:zipCode/:queryString", {
             templateUrl : "views/atGuidedSearch.html",
             controller: 'GuidedSearchController'
         })
-    .when("/Search", {
-        templateUrl : "views/search.html",
-        controller: 'SearchController'
-    })
     .when("/AboutUs", {
         templateUrl : "views/aboutUs.html"
     })
@@ -98,7 +99,7 @@ app.factory('UserInformation', function($cookies){
         //is valid will check that all the fields have a value
         isValid : function(){
             if
-                (this.data.reasonForSearchData && this.data.areaOfNeedData && this.data.typeOfAtDeviceData && this.data.queryString && this.data.zipCode){
+                (this.data.reasonForSearchData && this.data.areaOfNeedData && this.data.typeOfAtDeviceData && this.data.zipCode){
                     return true
                     }
             return false

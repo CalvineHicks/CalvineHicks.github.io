@@ -1,4 +1,6 @@
-app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', function GuidedSearchController($scope, $http, $routeParams) {
+app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams','UserInformation', function GuidedSearchController($scope, $http, $routeParams, UserInformation) {
+        $scope.userInformation = UserInformation.data;
+
         $scope.city = '';
         $scope.state = '';
         $scope.results = [];
@@ -22,6 +24,22 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         $scope.includeCraigslist = true;
         $scope.includeEbay = true;
         $scope.includeWalmart = true;
+
+        if(!$scope.reasonForSearch && $scope.userInformation.reasonForSearchData){
+            $scope.reasonForSearch = $scope.userInformation.reasonForSearchData;
+        }
+        if(!$scope.areaOfNeed && $scope.userInformation.areaOfNeedData){
+                    $scope.areaOfNeed = $scope.userInformation.areaOfNeedData;
+                }
+                if(!$scope.typeOfATDevice && $scope.userInformation.typeOfAtDeviceData){
+                            $scope.typeOfAtDeviceData = $scope.userInformation.typeOfAtDeviceData;
+                        }
+                        if(!$scope.zipCode && $scope.userInformation.zipCode){
+                                    $scope.zipCode = $scope.userInformation.zipCode;
+                                }
+                                if(!$scope.queryString && $scope.userInformation.queryString){
+                                            $scope.queryString = $scope.userInformation.queryString;
+                                        }
     
         if(!isEmptyOrSpaces($scope.zipCode)){
             $scope.zipCodeToCity;
@@ -34,7 +52,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
         };
 
         $scope.guidedSearch = function(){
-          if(!isEmptyOrSpaces($scope.reasonForSearch)) {
+          if(!isEmptyOrSpaces($scope.queryString)) {
             $scope.loadingResults=true;
             $scope.loadingResultsProgress=20;
             $scope.results.length = 0;
