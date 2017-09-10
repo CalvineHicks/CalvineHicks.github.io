@@ -22,8 +22,9 @@ router.get('/walmart', function(req, res) {
                 var responseModel = {};
                 var item = items[i];
 
+                responseModel['itemID'] = item['itemId'];
                 responseModel['title'] = item['name'];
-                responseModel['price'] = item['msrp'] ? item['msrp'] : item['salePrice'];
+                responseModel['price'] = item['salePrice'] ? item['salePrice'] : item['msrp'];
 
                 responseModel['shippingPrice'] = item['standardShipRate'];
                 responseModel['link'] = item['productUrl'];

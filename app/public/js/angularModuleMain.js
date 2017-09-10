@@ -39,6 +39,15 @@ app.controller('scrollLinks', function($scope, $location, $anchorScroll) {
    }
 });
 
+  function findItemInArrayByAttrVal(attr, val, array){
+    for(var i = 0; i<array.length; i+= 1){
+        if(array[i][attr] == val){
+            return array[i];
+        }
+    }
+    return null;
+  };
+
 //This factory allows us to persist the same fields accross controllers
 app.factory('UserInformation', function($cookies){
 

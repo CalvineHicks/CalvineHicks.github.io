@@ -93,6 +93,7 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
             
             //WALMART SEARCH
             //Iterate pages of walmart search since api is auto paginated
+            //walmart returns many repeats of items, so filter those out.
             $scope.walmartResults = [];
             var walmartTempResults = [];
             for(var pageNum=1; pageNum<=5; pageNum++){
@@ -106,12 +107,18 @@ app.controller('GuidedSearchController', ['$scope', '$http', '$routeParams', fun
                         walmartTempResults = response['data'];
                         for(var i in walmartTempResults){
                           walmartTempResults[i]['site'] = 'Walmart';
+                          //check if an item with this ID already exists in results. If it doesnt exist yet, add the item.
+                          if(!findItemInArrayByAttrVal('itemID', walmartTempResults[i]['itemID'], $scope.walmartResults)){
+                            //add result to walmart list
+                            $scope.walmartResults.push(walmartTempResults[i]);
+                            if($scope.includeWalmart){
+                               //add result to total result set if walmart results are to be included
+                               $scope.results.push(walmartTempResults[i]);
+                              }
+                           //increment total results by 1
+                           $scope.totalResults += 1;
+                          }
                         }
-                        $scope.walmartResults = $scope.walmartResults.concat(walmartTempResults);
-                      if($scope.includeWalmart){
-                        $scope.results = $scope.results.concat(walmartTempResults);
-                      }
-                        $scope.totalResults += walmartTempResults.length;
                     }, function errorCallback(response) {
                         console.log('error');
                         console.log(response);

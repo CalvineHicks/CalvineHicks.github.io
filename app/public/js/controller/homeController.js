@@ -3,15 +3,6 @@ app.controller('HomeController', function HomeController($scope, $http, UserInfo
 
   $scope.submitted = false;
 
-  function findSelectedOptionByName(name, availableOptions){
-    for(var i = 0; i<availableOptions.length; i+= 1){
-        if(availableOptions[i].name == name){
-            return availableOptions[i];
-        }
-    }
-    return null;
-  };
-
   $scope.reasonForSearchData = {
     availableOptions: [
       {id: '1', name: 'Want affordable option'},
@@ -22,7 +13,7 @@ app.controller('HomeController', function HomeController($scope, $http, UserInfo
     };
 
     if($scope.userInformation.reasonForSearchData){
-        var selected = findSelectedOptionByName($scope.userInformation.reasonForSearchData, $scope.reasonForSearchData.availableOptions);
+        var selected = findItemInArrayByAttrVal('name', $scope.userInformation.reasonForSearchData, $scope.reasonForSearchData.availableOptions);
         if(selected)
             $scope.reasonForSearchData.selectedOption = {id: selected.id, name : selected.name};
     }
@@ -48,7 +39,7 @@ app.controller('HomeController', function HomeController($scope, $http, UserInfo
   });
 
     if($scope.userInformation.areaOfNeedData){
-        var selected = findSelectedOptionByName($scope.userInformation.areaOfNeedData, $scope.areaOfNeedData.availableOptions);
+        var selected = findItemInArrayByAttrVal('name', $scope.userInformation.areaOfNeedData, $scope.areaOfNeedData.availableOptions);
         if(selected)
             $scope.areaOfNeedData.selectedOption = {id: selected.id, name : selected.name};
     }
@@ -69,7 +60,7 @@ app.controller('HomeController', function HomeController($scope, $http, UserInfo
     };
 
     if($scope.userInformation.typeOfAtDeviceData){
-        var selected = findSelectedOptionByName($scope.userInformation.typeOfAtDeviceData, $scope.typeOfAtDeviceData.availableOptions);
+        var selected = findItemInArrayByAttrVal('name', $scope.userInformation.typeOfAtDeviceData, $scope.typeOfAtDeviceData.availableOptions);
         if(selected)
             $scope.typeOfAtDeviceData.selectedOption = {id: selected.id, name : selected.name};
     }
