@@ -34,11 +34,14 @@ var queryString = req.query.queryString;
                         result['description'] = items[i]['subtitle'][0];
                         }
                         catch (err){ result['description'] = 'No Description Available' }
-                        result['thumbnail'] = items[i]['galleryURL'][0];
+                        try{
+                            result['thumbnail'] = items[i]['galleryURL'][0];
+                        }
+                        catch (err){}
                         try {
                             result['imageLink'] = items[i]['galleryPlusPictureURL'][0];
                         }
-                        catch (err){ result['imageLink'] = 'No Image Link Available' }
+                        catch (err){}
                         result['startDateTime'] = items[i]['listingInfo'][0]['startTime'][0]
                         result['endDateTime'] = items[i]['listingInfo'][0]['endTime'][0]
 
